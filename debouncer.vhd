@@ -27,15 +27,15 @@ begin
 		variable last : std_logic;
 	begin
 		if rising_edge(clock) then
-			if (input /= last) then
-				cnt := 0;
-				last := input;
-			else
+			if input = last then
 				if cnt = max then
 					output <= input;
 				else
 					cnt := cnt + 1;
 				end if;
+			else
+				cnt := 0;
+				last := input;
 			end if;
 		end if;
 	end process;
