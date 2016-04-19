@@ -19,17 +19,17 @@ entity ring_counter is
 end ring_counter;
 
 architecture bs of ring_counter is
+	signal cnt : std_logic_vector (SIZE-1 downto 0) := (START => '1', others => '0');
 begin
+	output <= cnt;
 	process (clock)
-		variable cnt : std_logic_vector (SIZE-1 downto 0) := (START => '1', others => '0');
 	begin
 		if rising_edge(clock) then
 			if direction = '0' then
-				cnt := cnt(0) & cnt(SIZE-1 downto 1);
+				cnt <= cnt(0) & cnt(SIZE-1 downto 1);
 			else
-				cnt := cnt(SIZE-2 downto 0) & cnt(SIZE-1);
+				cnt <= cnt(SIZE-2 downto 0) & cnt(SIZE-1);
 			end if;
-			output <= cnt;
 		end if;
 	end process;
 end bs;

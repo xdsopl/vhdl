@@ -20,22 +20,22 @@ entity debouncer is
 end debouncer;
 
 architecture bs of debouncer is
+	constant max : integer := (CLOCK_RATE_HZ * SETTLING_TIME_MS) / 1000;
+	signal cnt : integer range 0 to max := 0;
+	signal last : std_logic;
 begin
-	process(clock)
-		constant max : integer := (CLOCK_RATE_HZ * SETTLING_TIME_MS) / 1000;
-		variable cnt : integer range 0 to max := 0;
-		variable last : std_logic;
+	process (clock)
 	begin
 		if rising_edge(clock) then
 			if input = last then
 				if cnt = max then
 					output <= input;
 				else
-					cnt := cnt + 1;
+					cnt <= cnt + 1;
 				end if;
 			else
-				cnt := 0;
-				last := input;
+				cnt <= 0;
+				last <= input;
 			end if;
 		end if;
 	end process;
