@@ -12,6 +12,7 @@ entity ring_counter is
 		START : natural := 2
 	);
 	port (
+		reset : in std_logic := '0';
 		direction : in std_logic;
 		clock : in std_logic;
 		output : out std_logic_vector (SIZE-1 downto 0) := (START => '1', others => '0')
@@ -22,9 +23,11 @@ architecture bs of ring_counter is
 	signal cnt : std_logic_vector (SIZE-1 downto 0) := (START => '1', others => '0');
 begin
 	output <= cnt;
-	process (clock)
+	process (reset, clock)
 	begin
-		if rising_edge(clock) then
+		if reset = '1' then
+			cnt <= (START => '1', others => '0');
+		elsif rising_edge(clock) then
 			if direction = '0' then
 				cnt <= cnt(0) & cnt(SIZE-1 downto 1);
 			else
