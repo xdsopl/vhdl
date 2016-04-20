@@ -17,26 +17,12 @@ entity quadrature_decoder is
 end quadrature_decoder;
 
 architecture bs of quadrature_decoder is
-	signal locked : boolean := true;
+	signal locked : std_logic := '0';
+	signal saved : std_logic;
 begin
-	process (a, b)
-	begin
-		if a = '0' and b = '0' then
-			pulse <= '0';
-			locked <= false;
-		end if;
-		if not locked then
-			if a'last_value = '0' and a = '1' and b = '0' then
-				direction <= '0';
-			end if;
-			if b'last_value = '0' and b = '1' and a = '0' then
-				direction <= '1';
-			end if;
-		end if;
-		if a = '1' and b = '1' then
-			pulse <= '1';
-			locked <= true;
-		end if;
-	end process;
+	locked <= '0' when a = '0' and b = '0' else '1' when a = '1' and b = '1' else locked;
+	pulse <= locked;
+	saved <= '0' when locked = '0' and a = '1' and b = '0' else '1' when locked = '0' and a = '0' and b = '1' else saved;
+	direction <= saved;
 end bs;
 
