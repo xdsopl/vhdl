@@ -22,7 +22,7 @@ architecture bs of quadrature_decoder is
 begin
 	locked <= '0' when a = '0' and b = '0' else '1' when a = '1' and b = '1' else locked;
 	pulse <= locked;
-	saved <= '0' when locked = '0' and a = '1' and b = '0' else '1' when locked = '0' and a = '0' and b = '1' else saved;
+	saved <= saved when locked = '1' else '0' when a = '1' and b = '0' else '1' when a = '0' and b = '1' else saved;
 	direction <= saved;
 end bs;
 
