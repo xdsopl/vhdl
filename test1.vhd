@@ -13,27 +13,24 @@ entity test1 is
 	port (
 		clock : in std_logic;
 		reset_n : in std_logic;
-		rotary_a_n : in std_logic;
-		rotary_b_n : in std_logic;
-		leds_n : out std_logic_vector(NUM_LEDS-1 downto 0)
+		rotary_n : in std_logic_vector (1 downto 0);
+		leds_n : out std_logic_vector (NUM_LEDS-1 downto 0)
 	);
 end test1;
 
 architecture bs of test1 is
 	signal reset : std_logic;
-	signal rotary_a : std_logic;
-	signal rotary_b : std_logic;
+	signal rotary : std_logic_vector (1 downto 0);
 	signal pulse : std_logic;
 	signal direction : std_logic;
-	signal leds : std_logic_vector(NUM_LEDS-1 downto 0);
+	signal leds : std_logic_vector (NUM_LEDS-1 downto 0);
 begin
 	reset <= not reset_n;
-	rotary_a <= not rotary_a_n;
-	rotary_b <= not rotary_b_n;
+	rotary <= not rotary_n;
 	leds_n <= not leds;
 
 	quadrature_decoder_inst: entity work.quadrature_decoder
-		port map (rotary_a, rotary_b, direction, pulse);
+		port map (rotary, direction, pulse);
 
 	ring_counter_inst: entity work.ring_counter
 		generic map (SIZE => NUM_LEDS, START => NUM_LEDS/2)

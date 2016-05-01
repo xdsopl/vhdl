@@ -9,8 +9,7 @@ use ieee.std_logic_1164.all;
 -- prior debouncing of a and b is unnecessary
 entity quadrature_decoder is
 	port (
-		a : in std_logic;
-		b : in std_logic;
+		rotary : in std_logic_vector (1 downto 0);
 		direction : out std_logic;
 		pulse : out std_logic := '0'
 	);
@@ -20,9 +19,9 @@ architecture bs of quadrature_decoder is
 	signal locked : std_logic := '0';
 	signal saved : std_logic;
 begin
-	locked <= '0' when a = '0' and b = '0' else '1' when a = '1' and b = '1' else locked;
+	locked <= '0' when rotary = "00" else '1' when rotary = "11" else locked;
 	pulse <= locked;
-	saved <= saved when locked = '1' else '0' when a = '1' and b = '0' else '1' when a = '0' and b = '1' else saved;
+	saved <= saved when locked = '1' else '0' when rotary = "10" else '1' when rotary = "01" else saved;
 	direction <= saved;
 end bs;
 
