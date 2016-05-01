@@ -7,12 +7,15 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity test1 is
+	generic (
+		NUM_LEDS : positive := 5
+	);
 	port (
 		clock : in std_logic;
 		reset_n : in std_logic;
 		rotary_a_n : in std_logic;
 		rotary_b_n : in std_logic;
-		leds_n : out std_logic_vector(4 downto 0)
+		leds_n : out std_logic_vector(NUM_LEDS-1 downto 0)
 	);
 end test1;
 
@@ -22,7 +25,7 @@ architecture bs of test1 is
 	signal rotary_b : std_logic;
 	signal pulse : std_logic;
 	signal direction : std_logic;
-	signal leds : std_logic_vector(4 downto 0);
+	signal leds : std_logic_vector(NUM_LEDS-1 downto 0);
 begin
 	reset <= not reset_n;
 	rotary_a <= not rotary_a_n;
@@ -33,5 +36,6 @@ begin
 		port map (rotary_a, rotary_b, direction, pulse);
 
 	ring_counter_inst: entity work.ring_counter
+		generic map (SIZE => NUM_LEDS, START => NUM_LEDS/2)
 		port map (reset, direction, pulse, leds);
 end bs;
