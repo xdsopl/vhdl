@@ -11,17 +11,22 @@ entity quadrature_decoder is
 	port (
 		rotary : in std_logic_vector (1 downto 0);
 		direction : out std_logic;
-		pulse : out std_logic := '0'
+		pulse : out std_logic
 	);
 end quadrature_decoder;
 
 architecture bs of quadrature_decoder is
-	signal locked : std_logic := '0';
-	signal saved : std_logic;
+	signal ai, bi, al, bl, ah, bh, ao, bo : std_logic;
 begin
-	locked <= '0' when rotary = "00" else '1' when rotary = "11" else locked;
-	pulse <= locked;
-	saved <= saved when locked = '1' else '0' when rotary = "10" else '1' when rotary = "01" else saved;
-	direction <= saved;
+	ai <= rotary(0);
+	bi <= rotary(1);
+	al <= ai when bi = '0' else al;
+	bl <= bi when ai = '0' else bl;
+	ah <= ai when bi = '1' else ah;
+	bh <= bi when ai = '1' else bh;
+	ao <= al when bi = '1' else ah;
+	bo <= bl when ai = '1' else bh;
+	pulse <= ao and bo;
+	direction <= bo;
 end bs;
 
