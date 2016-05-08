@@ -26,8 +26,8 @@ architecture bs of max10_10M08E144_eval_test1 is
 	attribute chip_pin : string;
 	attribute chip_pin of clock : signal is "27";
 	attribute chip_pin of reset_n : signal is "121";
-	attribute chip_pin of invert_n : signal is "65";
-	attribute chip_pin of rotary_n : signal is "70, 69";
+	attribute chip_pin of invert_n : signal is "65"; -- need to enable weak pullup resistor
+	attribute chip_pin of rotary_n : signal is "70, 69"; -- need to enable weak pullup resistor
 	attribute chip_pin of leds_n : signal is "132, 134, 135, 140, 141";
 	attribute chip_pin of ground : signal is "66";
 	signal reset : std_logic;
