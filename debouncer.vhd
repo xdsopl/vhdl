@@ -26,6 +26,7 @@ begin
 	process (clock)
 	begin
 		if rising_edge(clock) then
+			last <= input;
 			if input = last then
 				if cnt = max then
 					output <= input;
@@ -34,7 +35,6 @@ begin
 				end if;
 			else
 				cnt <= 0;
-				last <= input;
 			end if;
 		end if;
 	end process;
