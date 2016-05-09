@@ -27,9 +27,25 @@ begin
 		rotary <= "00"; wait for 2 ms;
 
 		-- one step left
+		rotary <= "01"; wait for 100 us;
+		rotary <= "00"; wait for 50 us;
+		rotary <= "01"; wait for 100 us;
+		rotary <= "00"; wait for 50 us;
 		rotary <= "01"; wait for 1 ms;
+		rotary <= "11";	wait for 50 us;
+		rotary <= "01"; wait for 100 us;
+		rotary <= "11";	wait for 100 us;
+		rotary <= "01"; wait for 50 us;
 		rotary <= "11";	wait for 1 ms;
+		rotary <= "10";	wait for 100 us;
+		rotary <= "11";	wait for 100 us;
+		rotary <= "10";	wait for 50 us;
+		rotary <= "11";	wait for 100 us;
 		rotary <= "10";	wait for 1 ms;
+		rotary <= "00";	wait for 100 us;
+		rotary <= "10";	wait for 50 us;
+		rotary <= "00";	wait for 100 us;
+		rotary <= "10";	wait for 50 us;
 		rotary <= "00";	wait for 2 ms;
 
 		-- one step right
