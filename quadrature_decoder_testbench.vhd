@@ -15,14 +15,15 @@ architecture bs of quadrature_decoder_testbench is
 	signal direction : std_logic;
 	signal pulse : std_logic;
 
-	procedure bounce(signal s : out std_logic) is
+	procedure switch(signal s : out std_logic; constant v : std_logic) is
 	begin
-		s <= '1'; wait for 10 us;
+		s <= v; wait for 10 us;
 		s <= '0'; wait for 20 us;
 		s <= '1'; wait for 90 us;
 		s <= '0'; wait for 50 us;
 		s <= '1'; wait for 30 us;
 		s <= '0'; wait for 80 us;
+		s <= v; wait for 1 ms;
 	end procedure;
 begin
 	rotary <= (0 => a, 1 => b);
@@ -33,49 +34,58 @@ begin
 	stimulus : process
 	begin
 		-- start position
-		a <= '0'; b <= '0'; wait for 2 ms;
+		a <= '0';
+		b <= '0';
+		wait for 2 ms;
 
 		-- one step left
-		bounce(a); a <= '1'; wait for 1 ms;
-		bounce(b); b <= '1'; wait for 1 ms;
-		bounce(a); a <= '0'; wait for 1 ms;
-		bounce(b); b <= '0'; wait for 2 ms;
+		switch(a, '1');
+		switch(b, '1');
+		switch(a, '0');
+		switch(b, '0');
+		wait for 1 ms;
 
 		-- one step right
-		bounce(b); b <= '1'; wait for 1 ms;
-		bounce(a); a <= '1'; wait for 1 ms;
-		bounce(b); b <= '0'; wait for 1 ms;
-		bounce(a); a <= '0'; wait for 2 ms;
+		switch(b, '1');
+		switch(a, '1');
+		switch(b, '0');
+		switch(a, '0');
+		wait for 1 ms;
 
 		-- one step left
-		bounce(a); a <= '1'; wait for 1 ms;
-		bounce(b); b <= '1'; wait for 1 ms;
-		bounce(a); a <= '0'; wait for 1 ms;
-		bounce(b); b <= '0'; wait for 2 ms;
+		switch(a, '1');
+		switch(b, '1');
+		switch(a, '0');
+		switch(b, '0');
+		wait for 1 ms;
 
 		-- one step right
-		bounce(b); b <= '1'; wait for 1 ms;
-		bounce(a); a <= '1'; wait for 1 ms;
-		bounce(b); b <= '0'; wait for 1 ms;
-		bounce(a); a <= '0'; wait for 2 ms;
+		switch(b, '1');
+		switch(a, '1');
+		switch(b, '0');
+		switch(a, '0');
+		wait for 1 ms;
 
 		-- one step right
-		bounce(b); b <= '1'; wait for 1 ms;
-		bounce(a); a <= '1'; wait for 1 ms;
-		bounce(b); b <= '0'; wait for 1 ms;
-		bounce(a); a <= '0'; wait for 2 ms;
+		switch(b, '1');
+		switch(a, '1');
+		switch(b, '0');
+		switch(a, '0');
+		wait for 1 ms;
 
 		-- one step left
-		bounce(a); a <= '1'; wait for 1 ms;
-		bounce(b); b <= '1'; wait for 1 ms;
-		bounce(a); a <= '0'; wait for 1 ms;
-		bounce(b); b <= '0'; wait for 2 ms;
+		switch(a, '1');
+		switch(b, '1');
+		switch(a, '0');
+		switch(b, '0');
+		wait for 1 ms;
 
 		-- one step left
-		bounce(a); a <= '1'; wait for 1 ms;
-		bounce(b); b <= '1'; wait for 1 ms;
-		bounce(a); a <= '0'; wait for 1 ms;
-		bounce(b); b <= '0'; wait for 2 ms;
+		switch(a, '1');
+		switch(b, '1');
+		switch(a, '0');
+		switch(b, '0');
+		wait for 1 ms;
 
 		wait;
 	end process;
