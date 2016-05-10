@@ -49,54 +49,25 @@ begin
 		b <= '0';
 		wait for 2 ms;
 
-		-- one step left
-		switch(a, '1', n);
-		switch(b, '1', n);
-		switch(a, '0', n);
-		switch(b, '0', n);
-		wait for 1 ms;
+		for j in 0 to 2 loop
+			for i in 0 to j loop
+				-- one step left
+				switch(a, '1', n);
+				switch(b, '1', n);
+				switch(a, '0', n);
+				switch(b, '0', n);
+				wait for 1 ms;
+			end loop;
 
-		-- one step right
-		switch(b, '1', n);
-		switch(a, '1', n);
-		switch(b, '0', n);
-		switch(a, '0', n);
-		wait for 1 ms;
-
-		-- one step left
-		switch(a, '1', n);
-		switch(b, '1', n);
-		switch(a, '0', n);
-		switch(b, '0', n);
-		wait for 1 ms;
-
-		-- one step right
-		switch(b, '1', n);
-		switch(a, '1', n);
-		switch(b, '0', n);
-		switch(a, '0', n);
-		wait for 1 ms;
-
-		-- one step right
-		switch(b, '1', n);
-		switch(a, '1', n);
-		switch(b, '0', n);
-		switch(a, '0', n);
-		wait for 1 ms;
-
-		-- one step left
-		switch(a, '1', n);
-		switch(b, '1', n);
-		switch(a, '0', n);
-		switch(b, '0', n);
-		wait for 1 ms;
-
-		-- one step left
-		switch(a, '1', n);
-		switch(b, '1', n);
-		switch(a, '0', n);
-		switch(b, '0', n);
-		wait for 1 ms;
+			for i in 0 to j loop
+				-- one step right
+				switch(b, '1', n);
+				switch(a, '1', n);
+				switch(b, '0', n);
+				switch(a, '0', n);
+				wait for 1 ms;
+			end loop;
+		end loop;
 
 		wait;
 	end process;
