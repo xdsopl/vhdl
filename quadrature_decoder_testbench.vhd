@@ -15,8 +15,7 @@ architecture bs of quadrature_decoder_testbench is
 	signal direction : std_logic;
 	signal pulse : std_logic;
 begin
-	a <= rotary(0);
-	b <= rotary(1);
+	rotary <= (0 => a, 1 => b);
 
 	quadrature_decoder_inst : entity work.quadrature_decoder
 		port map (rotary, direction, pulse);
@@ -24,65 +23,65 @@ begin
 	stimulus : process
 	begin
 		-- start position
-		rotary <= "00"; wait for 2 ms;
+		a <= '0'; b <= '0'; wait for 2 ms;
 
 		-- one step left
-		rotary <= "01"; wait for 100 us;
-		rotary <= "00"; wait for 50 us;
-		rotary <= "01"; wait for 100 us;
-		rotary <= "00"; wait for 50 us;
-		rotary <= "01"; wait for 1 ms;
-		rotary <= "11";	wait for 50 us;
-		rotary <= "01"; wait for 100 us;
-		rotary <= "11";	wait for 100 us;
-		rotary <= "01"; wait for 50 us;
-		rotary <= "11";	wait for 1 ms;
-		rotary <= "10";	wait for 100 us;
-		rotary <= "11";	wait for 100 us;
-		rotary <= "10";	wait for 50 us;
-		rotary <= "11";	wait for 100 us;
-		rotary <= "10";	wait for 1 ms;
-		rotary <= "00";	wait for 100 us;
-		rotary <= "10";	wait for 50 us;
-		rotary <= "00";	wait for 100 us;
-		rotary <= "10";	wait for 50 us;
-		rotary <= "00";	wait for 2 ms;
+		a <= '1'; wait for 100 us;
+		a <= '0'; wait for 50 us;
+		a <= '1'; wait for 100 us;
+		a <= '0'; wait for 50 us;
+		a <= '1'; wait for 1 ms;
+		b <= '1'; wait for 50 us;
+		b <= '0'; wait for 100 us;
+		b <= '1'; wait for 100 us;
+		b <= '0'; wait for 50 us;
+		b <= '1'; wait for 1 ms;
+		a <= '0'; wait for 100 us;
+		a <= '1'; wait for 100 us;
+		a <= '0'; wait for 50 us;
+		a <= '1'; wait for 100 us;
+		a <= '0'; wait for 1 ms;
+		b <= '0'; wait for 100 us;
+		b <= '1'; wait for 50 us;
+		b <= '0'; wait for 100 us;
+		b <= '1'; wait for 50 us;
+		b <= '0'; wait for 2 ms;
 
 		-- one step right
-		rotary <= "10";	wait for 1 ms;
-		rotary <= "11";	wait for 1 ms;
-		rotary <= "01";	wait for 1 ms;
-		rotary <= "00";	wait for 2 ms;
+		b <= '1'; wait for 1 ms;
+		a <= '1'; wait for 1 ms;
+		b <= '0'; wait for 1 ms;
+		a <= '0'; wait for 2 ms;
 
 		-- one step left
-		rotary <= "01";	wait for 1 ms;
-		rotary <= "11";	wait for 1 ms;
-		rotary <= "10";	wait for 1 ms;
-		rotary <= "00";	wait for 2 ms;
+		a <= '1'; wait for 1 ms;
+		b <= '1'; wait for 1 ms;
+		a <= '0'; wait for 1 ms;
+		b <= '0'; wait for 2 ms;
 
 		-- one step right
-		rotary <= "10";	wait for 1 ms;
-		rotary <= "11";	wait for 1 ms;
-		rotary <= "01";	wait for 1 ms;
-		rotary <= "00";	wait for 2 ms;
+		b <= '1'; wait for 1 ms;
+		a <= '1'; wait for 1 ms;
+		b <= '0'; wait for 1 ms;
+		a <= '0'; wait for 2 ms;
 
 		-- one step right
-		rotary <= "10";	wait for 1 ms;
-		rotary <= "11";	wait for 1 ms;
-		rotary <= "01";	wait for 1 ms;
-		rotary <= "00";	wait for 2 ms;
+		b <= '1'; wait for 1 ms;
+		a <= '1'; wait for 1 ms;
+		b <= '0'; wait for 1 ms;
+		a <= '0'; wait for 2 ms;
 
 		-- one step left
-		rotary <= "01";	wait for 1 ms;
-		rotary <= "11";	wait for 1 ms;
-		rotary <= "10";	wait for 1 ms;
-		rotary <= "00";	wait for 2 ms;
+		a <= '1'; wait for 1 ms;
+		b <= '1'; wait for 1 ms;
+		a <= '0'; wait for 1 ms;
+		b <= '0'; wait for 2 ms;
 
 		-- one step left
-		rotary <= "01";	wait for 1 ms;
-		rotary <= "11";	wait for 1 ms;
-		rotary <= "10";	wait for 1 ms;
-		rotary <= "00";	wait for 2 ms;
+		a <= '1'; wait for 1 ms;
+		b <= '1'; wait for 1 ms;
+		a <= '0'; wait for 1 ms;
+		b <= '0'; wait for 2 ms;
 
 		wait;
 	end process;
