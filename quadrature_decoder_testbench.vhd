@@ -15,23 +15,34 @@ architecture bs of quadrature_decoder_testbench is
 	signal direction : std_logic;
 	signal pulse : std_logic;
 
-	procedure switch(signal s : out std_logic; constant v : std_logic) is
+	procedure noise(variable n : inout std_logic_vector(15 downto 0)) is
 	begin
-		s <= v; wait for 10 us;
-		s <= '0'; wait for 20 us;
-		s <= '1'; wait for 90 us;
-		s <= '0'; wait for 50 us;
-		s <= '1'; wait for 30 us;
-		s <= '0'; wait for 80 us;
-		s <= v; wait for 1 ms;
+		n := (n(0) xor n(3)) & n(15 downto 1);
+	end procedure;
+
+	procedure switch(
+		signal s : out std_logic;
+		constant v : std_logic;
+		variable n : inout std_logic_vector(15 downto 0)) is
+	begin
+		s <= v;
+		wait for 10 us;
+		for i in 0 to 9 loop
+			s <= n(0);
+			noise(n);
+			wait for 10 us;
+		end loop;
+		s <= v;
+		wait for 1 ms;
 	end procedure;
 begin
-	rotary <= (0 => a, 1 => b);
+	rotary <= b & a;
 
 	quadrature_decoder_inst : entity work.quadrature_decoder
 		port map (rotary, direction, pulse);
 
 	stimulus : process
+		variable n : std_logic_vector(15 downto 0) := (15 => '1', others => '0');
 	begin
 		-- start position
 		a <= '0';
@@ -39,52 +50,52 @@ begin
 		wait for 2 ms;
 
 		-- one step left
-		switch(a, '1');
-		switch(b, '1');
-		switch(a, '0');
-		switch(b, '0');
+		switch(a, '1', n);
+		switch(b, '1', n);
+		switch(a, '0', n);
+		switch(b, '0', n);
 		wait for 1 ms;
 
 		-- one step right
-		switch(b, '1');
-		switch(a, '1');
-		switch(b, '0');
-		switch(a, '0');
+		switch(b, '1', n);
+		switch(a, '1', n);
+		switch(b, '0', n);
+		switch(a, '0', n);
 		wait for 1 ms;
 
 		-- one step left
-		switch(a, '1');
-		switch(b, '1');
-		switch(a, '0');
-		switch(b, '0');
+		switch(a, '1', n);
+		switch(b, '1', n);
+		switch(a, '0', n);
+		switch(b, '0', n);
 		wait for 1 ms;
 
 		-- one step right
-		switch(b, '1');
-		switch(a, '1');
-		switch(b, '0');
-		switch(a, '0');
+		switch(b, '1', n);
+		switch(a, '1', n);
+		switch(b, '0', n);
+		switch(a, '0', n);
 		wait for 1 ms;
 
 		-- one step right
-		switch(b, '1');
-		switch(a, '1');
-		switch(b, '0');
-		switch(a, '0');
+		switch(b, '1', n);
+		switch(a, '1', n);
+		switch(b, '0', n);
+		switch(a, '0', n);
 		wait for 1 ms;
 
 		-- one step left
-		switch(a, '1');
-		switch(b, '1');
-		switch(a, '0');
-		switch(b, '0');
+		switch(a, '1', n);
+		switch(b, '1', n);
+		switch(a, '0', n);
+		switch(b, '0', n);
 		wait for 1 ms;
 
 		-- one step left
-		switch(a, '1');
-		switch(b, '1');
-		switch(a, '0');
-		switch(b, '0');
+		switch(a, '1', n);
+		switch(b, '1', n);
+		switch(a, '0', n);
+		switch(b, '0', n);
 		wait for 1 ms;
 
 		wait;
