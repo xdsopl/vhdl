@@ -2,4 +2,5 @@
 *.cf
 *_testbench
 *.vcd
+*.gtkw
 .*.swp
