@@ -17,6 +17,9 @@ architecture bs of quadrature_decoder_testbench is
 
 	procedure noise(variable n : inout std_logic_vector(15 downto 0)) is
 	begin
+		-- Thanks Maxim on smspower for (reverse engineered?) specs.
+		-- Generator polynomial for noise channel of SN76489
+		-- used on the SMS is not irrereducible: X^16 + X^13 + 1
 		n := (n(0) xor n(3)) & n(15 downto 1);
 	end procedure;
 
