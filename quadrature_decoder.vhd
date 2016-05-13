@@ -16,13 +16,13 @@ entity quadrature_decoder is
 end quadrature_decoder;
 
 architecture bs of quadrature_decoder is
-	signal a, b : std_logic;
+	signal pul, pul_n, dir, dir_n: std_logic;
 begin
-	detdff_inst1 : entity work.detdff
-		port map (rotary(0), rotary(1), a);
-	detdff_inst2 : entity work.detdff
-		port map (rotary(1), rotary(0), b);
-	pulse <= a and b;
-	direction <= b;
+	dir <= dir_n nor (rotary(0) and not rotary(1));
+	dir_n <= dir nor (rotary(1) and not rotary(0));
+	pul <= pul_n nor (rotary(0) nor rotary(1));
+	pul_n <= pul nor (rotary(0) and rotary(1));
+	pulse <= pul;
+	direction <= dir;
 end bs;
 
