@@ -6,7 +6,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
--- prior debouncing of a and b is unnecessary
+-- prior debouncing of rotary input is unnecessary
 entity quadrature_decoder is
 	port (
 		rotary : in std_logic_vector (1 downto 0);
