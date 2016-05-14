@@ -1,8 +1,19 @@
 \documentclass{standalone}
 \usepackage{tikz}
+\usepackage{tikz-timing}
 \usetikzlibrary{circuits.logic.US,shapes.gates.logic.IEC}
 \tikzstyle{branch}=[fill,shape=circle,minimum size=2pt,inner sep=0pt]
 \begin{document}
+\begin{tikztimingtable}
+A         & LLL HHL LLL LHH LLL \\
+B         & LLL LHH LLL HHL LLL \\
+C         & LLL LHL LLL LHL LLL \\
+D         & HHH LLL HHH LLL HHH \\
+E         & LLL HLL LLL LLH LLL \\
+F         & LLL LLH LLL HLL LLL \\
+Pulse     & LLL LHH LLL LHH LLL \\
+Direction & LLL LLH HHH HHL LLL \\
+\end{tikztimingtable}
 \begin{tikzpicture}[circuit logic US]
 \node (A) at (0,1.8) {$A$};
 \node (B) at (0,-1.8) {$B$};
@@ -14,8 +25,8 @@
 \node[nor gate, draw, inputs=nn] at ($(And2) +(1.9,+0.1)$) (Nor3) {};
 \node[nor gate, draw, inputs=nn] at ($(Nor1) +(1.9,+0.1)$) (Nor4) {};
 \node[nor gate, draw, inputs=nn] at ($(And3) +(1.9,-0.1)$) (Nor5) {};
-\node (P) at ($(Nor4)+(2.7,0)$) {$Pulse$};
-\node (D) at ($(Nor2)+(2.7,0)$) {$Direction$};
+\node (P) at ($(Nor4)+(2,0)$) {$Pulse$};
+\node (D) at ($(Nor2)+(2,0)$) {$Direction$};
 \draw (A) -- +(0.5,0) |- node[branch]{} (And1.input 1);
 \draw (B) -- +(0.7,0) |- node[branch]{} (And1.input 2);
 \draw (A) -- +(0.5,0) |- (And2.input 1);
@@ -24,13 +35,13 @@
 \draw (B) -- +(0.7,0) |- (And3.input 2);
 \draw (A) -- +(0.5,0) |- node[branch]{} (Nor1.input 1);
 \draw (B) -- +(0.7,0) |- node[branch]{} (Nor1.input 2);
-\draw (And1.output) -- +(0.2,0) node[above]{II} -- (Nor2.input 1);
-\draw (And2.output) -- +(0.2,0) node[above]{III} -- (Nor3.input 2);
+\draw (And1.output) -- +(0.2,0) node[above]{E} -- (Nor2.input 1);
+\draw (And2.output) -- +(0.2,0) node[above]{F} -- (Nor3.input 2);
 \draw (Nor2.output) -| node[branch]{} +(0.1,-0.4) -- +(-1.2,-0.7) |- (Nor3.input 1);
 \draw (Nor3.output) -| +(0.1,0.4) -- +(-1.2,0.7) |- (Nor2.input 2);
 \draw (Nor2.output) -- (D);
-\draw (And3.output) -- +(0.2,0) node[above]{IV} -- (Nor5.input 1);
-\draw (Nor1.output) -- +(0.1,0) node[above]{I} -- (Nor4.input 2);
+\draw (And3.output) -- +(0.2,0) node[above]{C} -- (Nor5.input 1);
+\draw (Nor1.output) -- +(0,0) node[above]{D} -- (Nor4.input 2);
 \draw (Nor5.output) -| +(0.1,-0.4) -- +(-1.2,-0.7) |- (Nor4.input 1);
 \draw (Nor4.output) -| node[branch]{} +(0.1,0.4) -- +(-1.2,0.7) |- (Nor5.input 2);
 \draw (Nor4.output) -- (P);
