@@ -6,14 +6,14 @@
 \begin{tikzpicture}[circuit logic US]
 \node (A) at (0,1.8) {$A$};
 \node (B) at (0,-1.8) {$B$};
-\node[and gate, draw, inputs=ni] at ($(1.4,-0.4)$) (And1) {1};
-\node[and gate, draw, inputs=in] at ($(1.4,-1.7)$) (And2) {2};
-\node[and gate, draw, inputs=nn] at ($(1.4,+1.7)$) (And3) {3};
-\node[nor gate, draw, inputs=nn] at ($(1.4,+0.4)$) (Nor1) {1};
-\node[nor gate, draw, inputs=nn] at ($(And1) +(1.9,-0.1)$) (Nor2) {2};
-\node[nor gate, draw, inputs=nn] at ($(And2) +(1.9,+0.1)$) (Nor3) {3};
-\node[nor gate, draw, inputs=nn] at ($(Nor1) +(1.9,+0.1)$) (Nor4) {4};
-\node[nor gate, draw, inputs=nn] at ($(And3) +(1.9,-0.1)$) (Nor5) {5};
+\node[and gate, draw, inputs=ni] at ($(1.4,-0.4)$) (And1) {};
+\node[and gate, draw, inputs=in] at ($(1.4,-1.7)$) (And2) {};
+\node[and gate, draw, inputs=nn] at ($(1.4,+1.7)$) (And3) {};
+\node[nor gate, draw, inputs=nn] at ($(1.4,+0.4)$) (Nor1) {};
+\node[nor gate, draw, inputs=nn] at ($(And1) +(1.9,-0.1)$) (Nor2) {};
+\node[nor gate, draw, inputs=nn] at ($(And2) +(1.9,+0.1)$) (Nor3) {};
+\node[nor gate, draw, inputs=nn] at ($(Nor1) +(1.9,+0.1)$) (Nor4) {};
+\node[nor gate, draw, inputs=nn] at ($(And3) +(1.9,-0.1)$) (Nor5) {};
 \node (P) at ($(Nor4)+(2.7,0)$) {$Pulse$};
 \node (D) at ($(Nor2)+(2.7,0)$) {$Direction$};
 \draw (A) -- +(0.5,0) |- node[branch]{} (And1.input 1);
