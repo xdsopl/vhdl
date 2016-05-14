@@ -14,7 +14,7 @@
 \node[nor gate, draw, inputs=nn] at ($(And2) +(1.9,+0.1)$) (Nor3) {3};
 \node[nor gate, draw, inputs=nn] at ($(Nor1) +(1.9,+0.1)$) (Nor4) {4};
 \node[nor gate, draw, inputs=nn] at ($(And3) +(1.9,-0.1)$) (Nor5) {5};
-\node (P) at ($(Nor5)+(2.7,0)$) {$Pulse$};
+\node (P) at ($(Nor4)+(2.7,0)$) {$Pulse$};
 \node (D) at ($(Nor2)+(2.7,0)$) {$Direction$};
 \draw (A) -- +(0.5,0) |- node[branch]{} (And1.input 1);
 \draw (B) -- +(0.7,0) |- node[branch]{} (And1.input 2);
@@ -31,8 +31,8 @@
 \draw (Nor2.output) -- (D);
 \draw (And3.output) -- +(0.2,0) node[above]{III} -- (Nor5.input 1);
 \draw (Nor1.output) -- +(0.2,0) node[above]{IV} -- (Nor4.input 2);
-\draw (Nor5.output) -| node[branch]{} +(0.1,-0.4) -- +(-1.2,-0.7) |- (Nor4.input 1);
-\draw (Nor4.output) -| +(0.1,0.4) -- +(-1.2,0.7) |- (Nor5.input 2);
-\draw (Nor5.output) -- (P);
+\draw (Nor5.output) -| +(0.1,-0.4) -- +(-1.2,-0.7) |- (Nor4.input 1);
+\draw (Nor4.output) -| node[branch]{} +(0.1,0.4) -- +(-1.2,0.7) |- (Nor5.input 2);
+\draw (Nor4.output) -- (P);
 \end{tikzpicture}
 \end{document}
