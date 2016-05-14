@@ -30,13 +30,13 @@ architecture bs of quadrature_decoder_testbench is
 	begin
 		s <= v;
 		wait for 10 us;
-		for i in 0 to 9 loop
+		for i in 1 to 19 loop
 			s <= n(0);
 			noise(n);
 			wait for 10 us;
 		end loop;
 		s <= v;
-		wait for 1 ms;
+		wait for 800 us;
 	end procedure;
 begin
 	rotary <= b & a;
