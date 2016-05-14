@@ -16,12 +16,19 @@ entity quadrature_decoder is
 end quadrature_decoder;
 
 architecture bs of quadrature_decoder is
+	signal a, b, c, d, e, f: std_logic;
 	signal pul, pul_n, dir, dir_n: std_logic;
 begin
-	dir <= dir_n nor (rotary(0) and not rotary(1));
-	dir_n <= dir nor (rotary(1) and not rotary(0));
-	pul <= pul_n nor (rotary(0) nor rotary(1));
-	pul_n <= pul nor (rotary(0) and rotary(1));
+	a <= rotary(0);
+	b <= rotary(1);
+	c <= a and b;
+	d <= a nor b;
+	e <= a and not b;
+	f <= b and not a;
+	dir <= dir_n nor e;
+	dir_n <= dir nor f;
+	pul <= pul_n nor d;
+	pul_n <= pul nor c;
 	pulse <= pul;
 	direction <= dir;
 end bs;
