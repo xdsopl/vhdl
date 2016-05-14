@@ -1,0 +1,38 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{circuits.logic.US,shapes.gates.logic.IEC}
+\tikzstyle{branch}=[fill,shape=circle,minimum size=2pt,inner sep=0pt]
+\begin{document}
+\begin{tikzpicture}[circuit logic US]
+\node (A) at (0,1.6) {$A$};
+\node (B) at (0,-1.6) {$B$};
+\node (P) at (5,1.4) {$Pulse$};
+\node (D) at (5,-0.6) {$Direction$};
+\node[and gate, draw, inputs=ni] at ($(1.4,-0.5)$) (And1) {1};
+\node[and gate, draw, inputs=in] at ($(1.4,-1.5)$) (And2) {2};
+\node[and gate, draw, inputs=nn] at ($(1.4,+1.5)$) (And3) {3};
+\node[nor gate, draw, inputs=nn] at ($(1.4,+0.5)$) (Nor1) {1};
+\node[nor gate, draw, inputs=nn] at ($(2.7,-0.6)$) (Nor2) {2};
+\node[nor gate, draw, inputs=nn] at ($(2.7,-1.4)$) (Nor3) {3};
+\node[nor gate, draw, inputs=nn] at ($(2.7,+0.6)$) (Nor4) {4};
+\node[nor gate, draw, inputs=nn] at ($(2.7,+1.4)$) (Nor5) {5};
+\draw (A) -- +(0.5,0) |- node[branch]{} (And1.input 1);
+\draw (B) -- +(0.7,0) |- node[branch]{} (And1.input 2);
+\draw (A) -- +(0.5,0) |- (And2.input 1);
+\draw (B) -- +(0.7,0) |- node[branch]{} (And2.input 2);
+\draw (A) -- +(0.5,0) |- node[branch]{} (And3.input 1);
+\draw (B) -- +(0.7,0) |- (And3.input 2);
+\draw (A) -- +(0.5,0) |- node[branch]{} (Nor1.input 1);
+\draw (B) -- +(0.7,0) |- node[branch]{} (Nor1.input 2);
+\draw (And1.output) -- (Nor2.input 1);
+\draw (And2.output) -- (Nor3.input 2);
+\draw (Nor2.output) -| node[branch]{} +(0.1,-0.3) -- +(-1.2,-0.5) |- (Nor3.input 1);
+\draw (Nor3.output) -| +(0.1,0.3) -- +(-1.2,0.5) |- (Nor2.input 2);
+\draw (Nor2.output) -- (D);
+\draw (And3.output) -- (Nor5.input 1);
+\draw (Nor1.output) -- (Nor4.input 2);
+\draw (Nor5.output) -| node[branch]{} +(0.1,-0.3) -- +(-1.2,-0.5) |- (Nor4.input 1);
+\draw (Nor4.output) -| +(0.1,0.3) -- +(-1.2,0.5) |- (Nor5.input 2);
+\draw (Nor5.output) -- (P);
+\end{tikzpicture}
+\end{document}
