@@ -24,13 +24,13 @@
 \draw (B) -- +(0.7,0) |- (And3.input 2);
 \draw (A) -- +(0.5,0) |- node[branch]{} (Nor1.input 1);
 \draw (B) -- +(0.7,0) |- node[branch]{} (Nor1.input 2);
-\draw (And1.output) -- +(0.2,0) node[above]{I} -- (Nor2.input 1);
-\draw (And2.output) -- +(0.2,0) node[above]{II} -- (Nor3.input 2);
+\draw (And1.output) -- +(0.2,0) node[above]{II} -- (Nor2.input 1);
+\draw (And2.output) -- +(0.2,0) node[above]{III} -- (Nor3.input 2);
 \draw (Nor2.output) -| node[branch]{} +(0.1,-0.4) -- +(-1.2,-0.7) |- (Nor3.input 1);
 \draw (Nor3.output) -| +(0.1,0.4) -- +(-1.2,0.7) |- (Nor2.input 2);
 \draw (Nor2.output) -- (D);
-\draw (And3.output) -- +(0.2,0) node[above]{III} -- (Nor5.input 1);
-\draw (Nor1.output) -- +(0.2,0) node[above]{IV} -- (Nor4.input 2);
+\draw (And3.output) -- +(0.2,0) node[above]{IV} -- (Nor5.input 1);
+\draw (Nor1.output) -- +(0.1,0) node[above]{I} -- (Nor4.input 2);
 \draw (Nor5.output) -| +(0.1,-0.4) -- +(-1.2,-0.7) |- (Nor4.input 1);
 \draw (Nor4.output) -| node[branch]{} +(0.1,0.4) -- +(-1.2,0.7) |- (Nor5.input 2);
 \draw (Nor4.output) -- (P);
