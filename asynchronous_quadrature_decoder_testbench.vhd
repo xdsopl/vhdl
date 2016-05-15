@@ -1,4 +1,4 @@
--- quadrature_decoder_testbench - testbench for quadrature decoder
+-- asynchronous_quadrature_decoder_testbench - testbench for asynchronous quadrature decoder
 -- Written in 2016 by <Ahmet Inan> <xdsopl@googlemail.com>
 -- To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
 -- You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
@@ -6,16 +6,14 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity quadrature_decoder_testbench is
-end quadrature_decoder_testbench;
+entity asynchronous_quadrature_decoder_testbench is
+end asynchronous_quadrature_decoder_testbench;
 
-architecture bs of quadrature_decoder_testbench is
-	signal clock : std_logic := '0';
+architecture bs of asynchronous_quadrature_decoder_testbench is
 	signal a, b : std_logic := '0';
 	signal rotary : std_logic_vector (1 downto 0);
 	signal direction : std_logic;
 	signal pulse : std_logic;
-	signal done : boolean := false;
 
 	procedure noise(variable n : inout std_logic_vector(15 downto 0)) is
 	begin
@@ -43,18 +41,8 @@ architecture bs of quadrature_decoder_testbench is
 begin
 	rotary <= b & a;
 
-	quadrature_decoder_inst : entity work.quadrature_decoder
-		port map (clock, rotary, direction, pulse);
-
-	clk_gen : process
-	begin
-		if done then
-			wait;
-		else
-			wait for 1 us;
-			clock <= not clock;
-		end if;
-	end process;
+	asynchronous_quadrature_decoder_inst : entity work.asynchronous_quadrature_decoder
+		port map (rotary, direction, pulse);
 
 	stimulus : process
 		variable n : std_logic_vector(15 downto 0) := (15 => '1', others => '0');
@@ -84,7 +72,6 @@ begin
 			end loop;
 		end loop;
 
-		done <= true;
 		wait;
 	end process;
 end bs;

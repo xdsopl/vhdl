@@ -37,7 +37,7 @@ begin
 		port map (clock, invert, inv_deb);
 
 	quadrature_decoder_inst: entity work.quadrature_decoder
-		port map (rotary, direction, pulse);
+		port map (clock, rotary, direction, pulse);
 
 	ring_counter_inst: entity work.ring_counter
 		generic map (SIZE => NUM_LEDS, START => NUM_LEDS/2)
