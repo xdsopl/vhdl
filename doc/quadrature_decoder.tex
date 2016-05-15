@@ -109,4 +109,16 @@ direction <= dir;
 \includegraphics[width=\textwidth]{quadrature_decoder_quartus.pdf}
 \caption{Reduced to two combinational loops by Altera Quartus}
 \end{figure}
+\begin{figure}
+\centering
+\begin{BVerbatim}
+Warning (332125): Found combinational loop of 2 nodes
+Warning (332126): Node "test1_inst|quadrature_decoder_inst|pul~0|combout"
+Warning (332126): Node "test1_inst|quadrature_decoder_inst|pul~0|dataa"
+Warning (332125): Found combinational loop of 2 nodes
+Warning (332126): Node "test1_inst|quadrature_decoder_inst|dir~0|combout"
+Warning (332126): Node "test1_inst|quadrature_decoder_inst|dir~0|dataa"
+\end{BVerbatim}
+\caption{Combinational loop warning}
+\end{figure}
 \end{document}
