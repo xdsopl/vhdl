@@ -14,14 +14,25 @@
 \begin{figure}
 \centering
 \begin{tikztimingtable}
-A         & LLL HHL LLL LHH LLL \\
-B         & LLL LHH LLL HHL LLL \\
-C         & LLL LHL LLL LHL LLL \\
-D         & HHH LLL HHH LLL HHH \\
-E         & LLL HLL LLL LLH LLL \\
-F         & LLL LLH LLL HLL LLL \\
-Pulse     & LLL LHH LLL LHH LLL \\
-Direction & LLL LLH HHH HHL LLL \\
+A         & LLL N(A1)HHN(A2)L LLL LN(A3)HHN(A4) LLL \\
+B         & LLL LN(B1)HHN(B2) LLL N(B3)HHN(B4)L LLL \\
+C         & LLL LN(C1)HN(C2)L LLL LN(C3)HN(C4)L LLL \\
+D         & HHH N(D1)LLLN(D2) HHH N(D3)LLLN(D4) HHH \\
+E         & LLL N(E1)HN(E2)LL LLL LLN(E3)HN(E4) LLL \\
+F         & LLL LLN(F1)HN(F2) LLL N(F3)HN(F4)LL LLL \\
+Pulse     & LLL LN(P1)HHN(P2) LLL LN(P3)HHN(P4) LLL \\
+Direction & LLL LLN(D1)H HHH HHN(D2)L LLL \\
+\extracode
+\begin{pgfonlayer}{background}
+\draw[help lines] (A1) -- (E1);
+\draw[help lines] (A2) -- (D1);
+\draw[help lines] (A3) -- (P3);
+\draw[help lines] (A4) -- (P4);
+\draw[help lines] (B1) -- (P1);
+\draw[help lines] (B2) -- (P2);
+\draw[help lines] (B3) -- (F3);
+\draw[help lines] (B4) -- (D2);
+\end{pgfonlayer}
 \end{tikztimingtable}
 \caption{Clean waveforms}
 \end{figure}
