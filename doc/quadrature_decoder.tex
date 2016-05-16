@@ -97,27 +97,32 @@ pul_n <= pul nor c;
 pulse <= pul;
 direction <= dir;
 \end{BVerbatim}
-\caption{Asynchronous VHDL code}
+\caption{VHDL code of asynchronous design}
 \end{figure}
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{asynchronous_quadrature_decoder_gtkwave.pdf}
-\caption{Waveforms of asynchronous quadrature decoder testbench, visualised by GTKWave}
+\caption{Waveforms of asynchronous design}
 \end{figure}
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{asynchronous_quadrature_decoder_quartus.pdf}
-\caption{Reduced to two combinational loops by Altera Quartus}
+\includegraphics[width=\textwidth]{asynchronous_quadrature_decoder_quartus_rtl.pdf}
+\caption{RTL view of asynchronous design}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{asynchronous_quadrature_decoder_quartus_map.pdf}
+\caption{Reduced to two combinational loops}
 \end{figure}
 \begin{figure}
 \centering
 \begin{BVerbatim}
-Warning (332125): Found combinational loop of 2 nodes
-Warning (332126): Node "test1_inst|decoder_inst|pul~0|combout"
-Warning (332126): Node "test1_inst|decoder_inst|pul~0|dataa"
-Warning (332125): Found combinational loop of 2 nodes
-Warning (332126): Node "test1_inst|decoder_inst|dir~0|combout"
-Warning (332126): Node "test1_inst|decoder_inst|dir~0|dataa"
+Warning: Found combinational loop of 2 nodes
+Warning (332126): Node "decoder_inst|pul~0|dataa"
+Warning (332126): Node "decoder_inst|pul~0|combout"
+Warning: Found combinational loop of 2 nodes
+Warning (332126): Node "decoder_inst|dir~0|dataa"
+Warning (332126): Node "decoder_inst|dir~0|combout"
 \end{BVerbatim}
 \caption{Combinational loop warning}
 \end{figure}
@@ -130,16 +135,21 @@ pul <= a when rising_edge(clock) and c = '0' else pul;
 pulse <= pul;
 direction <= dir;
 \end{BVerbatim}
-\caption{Synchronous VHDL code}
+\caption{VHDL code of synchronous design}
 \end{figure}
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{quadrature_decoder_gtkwave.pdf}
-\caption{Waveforms of synchronous quadrature decoder testbench, visualised by GTKWave}
+\caption{Waveforms of synchronous design}
 \end{figure}
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{quadrature_decoder_quartus.pdf}
-\caption{Reduced to two logic elements and two registers by Altera Quartus}
+\includegraphics[width=\textwidth]{quadrature_decoder_quartus_rtl.pdf}
+\caption{RTL view of synchronous design}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{quadrature_decoder_quartus_map.pdf}
+\caption{Technology map view of synchronous design}
 \end{figure}
 \end{document}
