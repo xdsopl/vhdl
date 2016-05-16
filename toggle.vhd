@@ -14,10 +14,10 @@ entity toggle is
 	);
 end toggle;
 
-architecture bs of toggle is
+architecture rtl of toggle is
 	signal state : std_logic := '0';
 begin
 	state <= '0' when reset = '1' else not state when rising_edge(clock) else state;
 	output <= state;
-end bs;
+end rtl;
 

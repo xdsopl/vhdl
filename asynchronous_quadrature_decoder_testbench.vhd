@@ -9,7 +9,7 @@ use ieee.std_logic_1164.all;
 entity asynchronous_quadrature_decoder_testbench is
 end asynchronous_quadrature_decoder_testbench;
 
-architecture bs of asynchronous_quadrature_decoder_testbench is
+architecture behavioral of asynchronous_quadrature_decoder_testbench is
 	signal a, b : std_logic := '0';
 	signal rotary : std_logic_vector (1 downto 0);
 	signal direction : std_logic;
@@ -74,5 +74,5 @@ begin
 
 		wait;
 	end process;
-end bs;
+end behavioral;
 

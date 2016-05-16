@@ -15,7 +15,7 @@ entity asynchronous_quadrature_decoder is
 	);
 end asynchronous_quadrature_decoder;
 
-architecture bs of asynchronous_quadrature_decoder is
+architecture gate_level of asynchronous_quadrature_decoder is
 	signal a, b, c, d, e, f : std_logic;
 	signal pul, pul_n, dir, dir_n : std_logic;
 begin
@@ -31,5 +31,5 @@ begin
 	pul_n <= pul nor c;
 	pulse <= pul;
 	direction <= dir;
-end bs;
+end gate_level;
 

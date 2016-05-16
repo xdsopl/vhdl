@@ -18,7 +18,7 @@ entity debouncer is
 	);
 end debouncer;
 
-architecture bs of debouncer is
+architecture rtl of debouncer is
 	constant max : integer := (CLOCK_RATE_HZ * SETTLING_TIME_MS) / 1000;
 	signal cnt : integer range 0 to max := 0;
 	signal last : std_logic;
@@ -38,5 +38,5 @@ begin
 			end if;
 		end if;
 	end process;
-end bs;
+end rtl;
 

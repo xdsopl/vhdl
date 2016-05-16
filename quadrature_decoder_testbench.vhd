@@ -9,7 +9,7 @@ use ieee.std_logic_1164.all;
 entity quadrature_decoder_testbench is
 end quadrature_decoder_testbench;
 
-architecture bs of quadrature_decoder_testbench is
+architecture behavioral of quadrature_decoder_testbench is
 	signal clock : std_logic := '0';
 	signal a, b : std_logic := '0';
 	signal rotary : std_logic_vector (1 downto 0);
@@ -87,5 +87,5 @@ begin
 		done <= true;
 		wait;
 	end process;
-end bs;
+end behavioral;
 

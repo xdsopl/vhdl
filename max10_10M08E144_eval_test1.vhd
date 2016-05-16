@@ -22,7 +22,7 @@ entity max10_10M08E144_eval_test1 is
 	);
 end max10_10M08E144_eval_test1;
 
-architecture bs of max10_10M08E144_eval_test1 is
+architecture rtl of max10_10M08E144_eval_test1 is
 	attribute chip_pin : string;
 	attribute chip_pin of clock : signal is "27";
 	attribute chip_pin of reset_n : signal is "121";
@@ -47,4 +47,4 @@ begin
 	test1_inst : entity work.test1
 		generic map (NUM_LEDS, CLOCK_RATE_HZ, SETTLING_TIME_MS)
 		port map (clock, reset, invert, rotary, leds);
-end bs;
+end rtl;

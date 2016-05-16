@@ -21,7 +21,7 @@ entity test1 is
 	);
 end test1;
 
-architecture bs of test1 is
+architecture rtl of test1 is
 	signal pulse : std_logic;
 	signal inv_deb : std_logic;
 	signal dir, inv : std_logic;
@@ -42,4 +42,4 @@ begin
 	ring_counter_inst: entity work.ring_counter
 		generic map (SIZE => NUM_LEDS, START => NUM_LEDS/2)
 		port map (reset, dir, pulse, leds);
-end bs;
+end rtl;

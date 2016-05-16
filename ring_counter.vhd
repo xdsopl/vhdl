@@ -19,7 +19,7 @@ entity ring_counter is
 	);
 end ring_counter;
 
-architecture bs of ring_counter is
+architecture rtl of ring_counter is
 	signal cnt : std_logic_vector (SIZE-1 downto 0) := (START => '1', others => '0');
 begin
 	output <= cnt;
@@ -35,5 +35,5 @@ begin
 			end if;
 		end if;
 	end process;
-end bs;
+end rtl;
 

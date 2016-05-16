@@ -16,7 +16,7 @@ entity quadrature_decoder is
 	);
 end quadrature_decoder;
 
-architecture bs of quadrature_decoder is
+architecture rtl of quadrature_decoder is
 	signal a, b, c : std_logic;
 	signal pul, dir : std_logic;
 begin
@@ -27,5 +27,5 @@ begin
 	pul <= a when rising_edge(clock) and c = '0' else pul;
 	pulse <= pul;
 	direction <= dir;
-end bs;
+end rtl;
 
