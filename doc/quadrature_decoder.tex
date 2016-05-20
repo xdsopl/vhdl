@@ -243,6 +243,30 @@ Warning (332126): Node "decoder_inst|dir~0|combout"
 \end{figure}
 \begin{figure}
 \centering
+\begin{tikztimingtable}[xscale=0.25]
+I0  & 200H \\
+I1  & 200L \\
+I2  & 200H \\
+I3  & 200L \\
+I4  & 200L \\
+I5  & 200L \\
+I6  & 200L \\
+I7  & 200L \\
+A   & 25L 25H N(A1) 25L 25H N(A2) 25L 25H 25L 25H \\
+B   & 51L 50H N(B1) 50L 49H \\
+C   & 102L 98H \\
+Out & 25H 25L N(O1)25H 25L N(O2)HN(O3) 24L 25L 25L 25L \\
+\extracode
+\begin{pgfonlayer}{background}
+\draw[help lines] (A1) -- (O1);
+\draw[help lines] (A2) -- (O2);
+\draw[help lines] (B1) -- (O3);
+\end{pgfonlayer}
+\end{tikztimingtable}
+\caption{Glitch on output when multiple inputs change at almost the same time}
+\end{figure}
+\begin{figure}
+\centering
 \begin{BVerbatim}
 c <= a xor b;
 dir <= b when rising_edge(clock) and c = '1' else dir;
