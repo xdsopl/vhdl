@@ -133,6 +133,116 @@ Warning (332126): Node "decoder_inst|dir~0|combout"
 \end{figure}
 \begin{figure}
 \centering
+\begin{tikzpicture}[circuit logic US]
+\node (A) at (1,0) {$A$};
+\node (B) at (2,0) {$B$};
+\node (C) at (3,0) {$C$};
+\node[and gate, draw, inputs=niii] at (4,8) (And0) {};
+\node[and gate, draw, inputs=nnii] at (4,7) (And1) {};
+\node[and gate, draw, inputs=nini] at (4,6) (And2) {};
+\node[and gate, draw, inputs=nnni] at (4,5) (And3) {};
+\node[and gate, draw, inputs=niin] at (4,4) (And4) {};
+\node[and gate, draw, inputs=nnin] at (4,3) (And5) {};
+\node[and gate, draw, inputs=ninn] at (4,2) (And6) {};
+\node[and gate, draw, inputs=nnnn] at (4,1) (And7) {};
+\node[or gate, draw, inputs=nnnnnnnn] at (7,4.5) (Or0) {};
+\node (O) at ($(Or0.output)+(1,0)$) {$Out$};
+\node (I0) at ($(And0.input 1)+(-4,0)$) {$I0$};
+\node (I1) at ($(And1.input 1)+(-4,0)$) {$I1$};
+\node (I2) at ($(And2.input 1)+(-4,0)$) {$I2$};
+\node (I3) at ($(And3.input 1)+(-4,0)$) {$I3$};
+\node (I4) at ($(And4.input 1)+(-4,0)$) {$I4$};
+\node (I5) at ($(And5.input 1)+(-4,0)$) {$I5$};
+\node (I6) at ($(And6.input 1)+(-4,0)$) {$I6$};
+\node (I7) at ($(And7.input 1)+(-4,0)$) {$I7$};
+\node[branch, draw] at ($(And1.input 2 -| A)$) (A1) {};
+\node[branch, draw] at ($(And1.input 3 -| B)$) (B1) {};
+\node[branch, draw] at ($(And1.input 4 -| C)$) (C1) {};
+\node[branch, draw] at ($(And2.input 2 -| A)$) (A2) {};
+\node[branch, draw] at ($(And2.input 3 -| B)$) (B2) {};
+\node[branch, draw] at ($(And2.input 4 -| C)$) (C2) {};
+\node[branch, draw] at ($(And3.input 2 -| A)$) (A3) {};
+\node[branch, draw] at ($(And3.input 3 -| B)$) (B3) {};
+\node[branch, draw] at ($(And3.input 4 -| C)$) (C3) {};
+\node[branch, draw] at ($(And4.input 2 -| A)$) (A4) {};
+\node[branch, draw] at ($(And4.input 3 -| B)$) (B4) {};
+\node[branch, draw] at ($(And4.input 4 -| C)$) (C4) {};
+\node[branch, draw] at ($(And5.input 2 -| A)$) (A5) {};
+\node[branch, draw] at ($(And5.input 3 -| B)$) (B5) {};
+\node[branch, draw] at ($(And5.input 4 -| C)$) (C5) {};
+\node[branch, draw] at ($(And6.input 2 -| A)$) (A6) {};
+\node[branch, draw] at ($(And6.input 3 -| B)$) (B6) {};
+\node[branch, draw] at ($(And6.input 4 -| C)$) (C6) {};
+\node[branch, draw] at ($(And7.input 2 -| A)$) (A7) {};
+\node[branch, draw] at ($(And7.input 3 -| B)$) (B7) {};
+\node[branch, draw] at ($(And7.input 4 -| C)$) (C7) {};
+\draw (I0) -- (And0.input 1);
+\draw (I1) -- (And1.input 1);
+\draw (I2) -- (And2.input 1);
+\draw (I3) -- (And3.input 1);
+\draw (I4) -- (And4.input 1);
+\draw (I5) -- (And5.input 1);
+\draw (I6) -- (And6.input 1);
+\draw (I7) -- (And7.input 1);
+\draw (A1) |- (And0.input 2);
+\draw (B1) |- (And0.input 3);
+\draw (C1) |- (And0.input 4);
+\draw (A1) -- (And1.input 2);
+\draw (B1) -- (And1.input 3);
+\draw (C1) -- (And1.input 4);
+\draw (A2) -- (And2.input 2);
+\draw (B2) -- (And2.input 3);
+\draw (C2) -- (And2.input 4);
+\draw (A3) -- (And3.input 2);
+\draw (B3) -- (And3.input 3);
+\draw (C3) -- (And3.input 4);
+\draw (A4) -- (And4.input 2);
+\draw (B4) -- (And4.input 3);
+\draw (C4) -- (And4.input 4);
+\draw (A5) -- (And5.input 2);
+\draw (B5) -- (And5.input 3);
+\draw (C5) -- (And5.input 4);
+\draw (A6) -- (And6.input 2);
+\draw (B6) -- (And6.input 3);
+\draw (C6) -- (And6.input 4);
+\draw (A7) -- (And7.input 2);
+\draw (B7) -- (And7.input 3);
+\draw (C7) -- (And7.input 4);
+\draw (A) -- (A7);
+\draw (B) -- (B7);
+\draw (C) -- (C7);
+\draw (A1) -- (A2);
+\draw (B1) -- (B2);
+\draw (C1) -- (C2);
+\draw (A2) -- (A3);
+\draw (B2) -- (B3);
+\draw (C2) -- (C3);
+\draw (A3) -- (A4);
+\draw (B3) -- (B4);
+\draw (C2) -- (C4);
+\draw (A4) -- (A5);
+\draw (B4) -- (B5);
+\draw (C4) -- (C5);
+\draw (A5) -- (A6);
+\draw (B5) -- (B6);
+\draw (C5) -- (C6);
+\draw (A6) -- (A7);
+\draw (B6) -- (B7);
+\draw (C6) -- (C7);
+\draw (And0.output) -- +(1,0) |- (Or0.input 1);
+\draw (And1.output) -- +(0.8,0) |- (Or0.input 2);
+\draw (And2.output) -- +(0.6,0) |- (Or0.input 3);
+\draw (And3.output) -- +(0.4,0) |- (Or0.input 4);
+\draw (And4.output) -- +(0.4,0) |- (Or0.input 5);
+\draw (And5.output) -- +(0.6,0) |- (Or0.input 6);
+\draw (And6.output) -- +(0.8,0) |- (Or0.input 7);
+\draw (And7.output) -- +(1,0) |- (Or0.input 8);
+\draw (Or0.output) -- (O);
+\end{tikzpicture}
+\caption{Lookup table logic circuit}
+\end{figure}
+\begin{figure}
+\centering
 \begin{BVerbatim}
 c <= a xor b;
 dir <= b when rising_edge(clock) and c = '1' else dir;
