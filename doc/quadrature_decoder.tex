@@ -1,15 +1,27 @@
-% quadrature_decoder - quadrature decoder without clock input
+% quadrature_decoder - quadrature decoder with or without clock input
 % Written in 2016 by <Ahmet Inan> <xdsopl@googlemail.com>
 % To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
 % You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 \documentclass{article}
 \usepackage[a4paper,left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{hyperref}
 \usepackage{fancyvrb}
 \usepackage{tikz}
 \usepackage{tikz-timing}
 \usetikzlibrary{circuits.logic.US}
 \tikzstyle{branch}=[fill,shape=circle,minimum size=2pt,inner sep=0pt]
+\title{Quadrature decoder with or without clock input\\- or -\\How to use a rotary encoder with an FPGA using VHDL}
+\author{Ahmet Inan\\\href{mailto:xdsopl@googlemail.com}{\nolinkurl{xdsopl@googlemail.com}}}
 \begin{document}
+\maketitle
+\begin{abstract}
+It has been a long time since I played with 74HCT devices to build an 16-Bit-ISA card bus interface.
+But times change and you wouldn't do that today having all these nice tools and devices.
+I'm talking of course about CPLD (sea of gates) and FPGA (lookup tables) devices and most important of all, their design synthesis tools.
+So I wanted to know, how rotary encoders work, how I could use them with FPGA's and also learn VHDL.
+It's gonna be fun, let's go!
+\end{abstract}
+\newpage
 \begin{figure}
 \centering
 \includegraphics[width=0.5\textwidth]{quadrature_decoder_rigol.png}
