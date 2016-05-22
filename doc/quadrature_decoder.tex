@@ -28,6 +28,8 @@ As you can see from the signals captured~\footnote{Image created by Rigol DS1102
 by a dual channel oscilloscope in figure~\ref{fig:bounces},
 the contacts of the mechanical switches inside of the rotary encoder will bounce while switching and create erratic pulses until they finally settle down.
 Fortunately, only one of the two signals created by the rotary encoder will ever have those erratic pulses simultaneously.
+So could we apply the things we've learned from debouncing a double throw switch with an SR latch\footnote{Jack G. Ganssle wrote a very nice article about it: A Guide to Debouncing.}?
+Yes, we can!
 \begin{figure}
 \centering
 \includegraphics[width=0.5\textwidth]{quadrature_decoder_rigol.png}
