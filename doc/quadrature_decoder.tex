@@ -4,6 +4,7 @@
 % You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 \documentclass{article}
 \usepackage[a4paper,left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{gensymb}
 \usepackage{hyperref}
 \usepackage{fancyvrb}
 \usepackage{tikz}
@@ -30,13 +31,50 @@ the contacts of the mechanical switches inside of the rotary encoder will bounce
 Fortunately, only one of the two signals created by the rotary encoder will ever have those erratic pulses simultaneously.
 So could we apply the things we've learned from debouncing a double throw switch with an SR latch\footnote{Jack G. Ganssle wrote a very nice article about it: A Guide to Debouncing.}?
 Yes, we can!
-\begin{figure}
+\begin{figure}[b]
 \centering
 \includegraphics[width=0.5\textwidth]{quadrature_decoder_rigol.png}
 \caption{Bounces caused by the mechanical switches of the rotary encoder}
 \label{fig:bounces}
 \end{figure}
-\begin{figure}
+\newpage
+\section{Quadrature signals}
+Let's disregard the erratic pulses for a moment so we can focus on the interrelation of the signals shown in figure~\ref{fig:quadrature} created by a rotary encoder.
+On the left you can see waveforms that happen when the wheel of the rotary encoder is turned one step left and one step right is what you see on the right side.
+These signals are said to be \emph{in quadrature} as their relation is that they are ortogonal to each other or in simpler terms, $90\degree$ out of phase.
+\begin{figure}[h]
+\centering
+\begin{tikztimingtable}
+& SSS N(A1)SN(A2)SN(A3)SN(A4) SSS SSS SSS N(A5)SN(A6)SN(A7)SN(A8) SSS \\
+$A$ & LLL HHL LLL SSS LLL LHH LLL \\
+$B$ & LLL LHH LLL SSS LLL HHL LLL \\
+& SSS N(B1)SN(B2)SN(B3)SN(B4) SSS SSS SSS N(B5)SN(B6)SN(B7)SN(B8) SSS \\
+\extracode
+\begin{pgfonlayer}{background}
+\node at ($(A1)+(0,0.5)$) {\tiny$1$};
+\node at ($(A2)+(0,0.5)$) {\tiny$2$};
+\node at ($(A3)+(0,0.5)$) {\tiny$3$};
+\node at ($(A4)+(0,0.5)$) {\tiny$4$};
+\node at ($(A5)+(0,0.5)$) {\tiny$5$};
+\node at ($(A6)+(0,0.5)$) {\tiny$6$};
+\node at ($(A7)+(0,0.5)$) {\tiny$7$};
+\node at ($(A8)+(0,0.5)$) {\tiny$8$};
+\draw[help lines] (A1) -- (B1);
+\draw[help lines] (A2) -- (B2);
+\draw[help lines] (A3) -- (B3);
+\draw[help lines] (A4) -- (B4);
+\draw[help lines] (A5) -- (B5);
+\draw[help lines] (A6) -- (B6);
+\draw[help lines] (A7) -- (B7);
+\draw[help lines] (A8) -- (B8);
+\end{pgfonlayer}
+\end{tikztimingtable}
+\caption{Rotary encoder signals in quadrature}
+\label{fig:quadrature}
+\end{figure}
+\section{Design with logic gates}
+Someone used to designing with logic gates might come up with a circuit like shown in figure~\ref{fig:logic}.
+\begin{figure}[h]
 \centering
 \begin{tikzpicture}[circuit logic US]
 \node (A) at (0,1.8) {$A$};
@@ -83,7 +121,10 @@ Yes, we can!
 \draw (P1) -- (P);
 \end{tikzpicture}
 \caption{Logic gate circuit}
+\label{fig:logic}
 \end{figure}
+\section{Understanding the circuit}
+Analysing the waveforms of the signals $C$ to $F$, $Pulse$ and $Direction$ created by the circuit when stimulated by the clean signals $A$ and $B$ might look like in figure~\ref{fig:waveforms}.
 \begin{figure}
 \centering
 \begin{tikztimingtable}
@@ -108,7 +149,9 @@ $Direction$ & LLL LLN(D1)H HHH HHN(D2)L LLL \\
 \end{pgfonlayer}
 \end{tikztimingtable}
 \caption{Clean waveforms}
+\label{fig:waveforms}
 \end{figure}
+\newpage
 \begin{figure}
 \centering
 \begin{BVerbatim}
