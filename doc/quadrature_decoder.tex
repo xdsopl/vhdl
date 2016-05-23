@@ -3,6 +3,7 @@
 % To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
 % You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 \documentclass[a4paper]{article}
+\usepackage{amsmath}
 \usepackage{wrapfig}
 \usepackage{gensymb}
 \usepackage{hyperref}
@@ -40,9 +41,6 @@ Yes, we can!
 \newpage
 \section{Quadrature signals}
 Let's disregard the erratic pulses for a moment so we can focus on the interrelation of the signals shown in figure~\ref{fig:quadrature} created by a rotary encoder.
-On the left you can see waveforms that happen when the wheel of the rotary encoder is turned one step left and one step right is what you see on the right side.
-These signals are said to be \emph{in quadrature} as their relation is that they are ortogonal to each other or in simpler terms, $90\degree$ out of phase.
-We can also gather, that there are only four signal level constellations we have to consider:
 \begin{wrapfigure}{r}{0.5\textwidth}
 \centering
 \begin{tikztimingtable}
@@ -73,19 +71,15 @@ $B$ & LLL LHH LLL SSS LLL HHL LLL \\
 \caption{Signals in quadrature}
 \label{fig:quadrature}
 \end{wrapfigure}
-\begin{enumerate}
-\item $1-2, 7-8$: $A=H \land B=L$
-\item $2-3, 6-7$: $A=H \land B=H$
-\item $3-4, 5-6$: $A=L \land B=H$
-\item else: $A=L \land B=L$
-\end{enumerate}
-Creating the signals to be debounced by our trusty SR~latches is now easy:
-\begin{enumerate}
-\item $E \gets A \land \neg B$
-\item $C \gets A \land B$
-\item $F \gets B \land \neg A$
-\item $D \gets \neg (A \lor B)$
-\end{enumerate}
+On the left you can see waveforms that happen when the wheel of the rotary encoder is turned one step left and one step right is what you see on the right side.
+These signals are said to be \emph{in quadrature} as their relation is that they are ortogonal to each other or in simpler terms, $90\degree$ out of phase.
+We can also gather, that there are only four signal level constellations we have to consider and creating the signals to be debounced by our trusty SR~latches is now easy:
+\begin{align}
+1-2, 7-8 &:& A = H &\land B = L &\implies& E \gets A \land \neg B\\
+2-3, 6-7 &:& A = H &\land B = H &\implies& C \gets A \land B\\
+3-4, 5-6 &:& A = L &\land B = H &\implies& F \gets B \land \neg A\\
+    else &:& A = L &\land B = L &\implies& D \gets \neg (A \lor B)
+\end{align}
 \section{Design with logic gates}
 Someone used to designing with logic gates might come up with a circuit like shown in figure~\ref{fig:logic}.
 \begin{figure}[h]
