@@ -81,8 +81,7 @@ We can also gather, that there are only four signal level constellations we have
     else &:& A = L &\land B = L &\implies& D \gets \neg (A \lor B)
 \end{align}
 \section{Design with logic gates}
-Putting those new signals $C-F$ to good use and designing a circuit made from logic gates should lead us to something like shown in figure~\ref{fig:logic}.
-\begin{figure}[h]
+\begin{wrapfigure}{r}{0.5\textwidth}
 \centering
 \begin{tikzpicture}[circuit logic US]
 \node[nor gate, draw, inputs=nn] at (3,0) (Nor2) {};
@@ -130,10 +129,12 @@ Putting those new signals $C-F$ to good use and designing a circuit made from lo
 \end{tikzpicture}
 \caption{Logic gate circuit}
 \label{fig:logic}
-\end{figure}
-\section{Understanding the circuit}
-Analysing the waveforms of the signals $C$ to $F$, $Pulse$ and $Direction$ created by the circuit when stimulated by the clean signals $A$ and $B$ might look like in figure~\ref{fig:waveforms}.
-\begin{figure}
+\end{wrapfigure}
+Putting those new signals $C-F$ to good use and designing a circuit made from logic gates should lead us to something like shown in figure~\ref{fig:logic}.
+But is it really gonna work if we build it? Let's find out!
+\section{Circuit analysis}
+Carefully analysing the waveforms of the signals $C-F$, $Pulse$ and $Direction$ created by our circuit when stimulated by the clean signals $A$ and $B$ might look like in figure~\ref{fig:waveforms}.
+\begin{figure}[h]
 \centering
 \begin{tikztimingtable}
 $A$         & LLL N(A1)HHN(A2)L LLL LN(A3)HHN(A4) LLL \\
