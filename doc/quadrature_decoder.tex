@@ -42,7 +42,8 @@ Yes, we can!
 Let's disregard the erratic pulses for a moment so we can focus on the interrelation of the signals shown in figure~\ref{fig:quadrature} created by a rotary encoder.
 On the left you can see waveforms that happen when the wheel of the rotary encoder is turned one step left and one step right is what you see on the right side.
 These signals are said to be \emph{in quadrature} as their relation is that they are ortogonal to each other or in simpler terms, $90\degree$ out of phase.
-\begin{wrapfigure}{l}{0.5\textwidth}
+We can also gather, that there are only four signal level constellations we have to consider:
+\begin{wrapfigure}{r}{0.5\textwidth}
 \centering
 \begin{tikztimingtable}
 & SSS N(A1)SN(A2)SN(A3)SN(A4) SSS SSS SSS N(A5)SN(A6)SN(A7)SN(A8) SSS \\
@@ -72,7 +73,6 @@ $B$ & LLL LHH LLL SSS LLL HHL LLL \\
 \caption{Signals in quadrature}
 \label{fig:quadrature}
 \end{wrapfigure}
-We can also gather, that there are only four signal level constellations we have to consider:
 \begin{enumerate}
 \item $1-2, 7-8$: $A=H \land B=L$
 \item $2-3, 6-7$: $A=H \land B=H$
