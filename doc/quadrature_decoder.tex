@@ -79,13 +79,13 @@ We can also gather, that there are only four signal level constellations we have
 \item $3-4, 5-6$: $A=L \land B=H$
 \item else: $A=L \land B=L$
 \end{enumerate}
-Creating the signals for our trusty SR~latches to be debounced is now easy:
-\begin{itemize}
-\item $C \gets A \land B$
-\item $D \gets \neg (A \lor B)$
+Creating the signals to be debounced by our trusty SR~latches is now easy:
+\begin{enumerate}
 \item $E \gets A \land \neg B$
+\item $C \gets A \land B$
 \item $F \gets B \land \neg A$
-\end{itemize}
+\item $D \gets \neg (A \lor B)$
+\end{enumerate}
 \section{Design with logic gates}
 Someone used to designing with logic gates might come up with a circuit like shown in figure~\ref{fig:logic}.
 \begin{figure}[h]
