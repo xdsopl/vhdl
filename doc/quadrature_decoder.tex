@@ -215,13 +215,23 @@ The result of running a testbench simulation on the VHDL code from figure~\ref{f
 As you can see, we are even able to simulate the contact bounces in a testbench!
 Signals $A$--$F$ have the erratic pulses but behold, the $Pulse$ and $Direction$ signals are properly debounced by the SR latches.
 If you want to run this testbench on your own, this is the place where you should stop reading and have fun with the VHDL code on my GitHub page: \url{https://github.com/xdsopl/vhdl}
-\\Had fun? Thought so. Let's continue with synthesis.
+\\Had fun? Thought so. Let's continue with the hardware.
+\section{Which FPGA Vendor}
+For my FPGA experiments I ordered an Altera MAX10 devkit~\footnote{\href{https://www.altera.com/products/boards_and_kits/dev-kits/altera/kit-max-10-evaluation.html}{Altera MAX 10 FPGA Evaluation Kit EK-10M08E144ES/P}} on Digi-Key~\footnote{\href{http://www.digikey.de/short/3pd4ch}{Digi-Key Part Number: 544-3042-ND}}.
+That's why I'm going to continue with the results and screenshots made from Altera's free Quartus~Prime~Lite~Edition~\footnote{\url{http://dl.altera.com/?edition=lite}} design software.
+Don't forget to order an download cable with the above devkit, as it has no onboard programmer.
+I ended up ordering the cheaper USB Blaster clone from Terasic on Digi-Key~\footnote{\href{http://www.digikey.de/short/3pd4j9}{Digi-Key Part Number: P0302-ND}} which also works with the software from Altera.
+The only thing I couldn't understand was the lack of galvanic isolation for a simple device of such high price.
+So be careful when poking around for differential signals with your oscilloscope\footnote{Dave Jones made a very nice video about it: \href{https://youtu.be/xaELqAo4kkQ}{How NOT To Blow Up Your Oscilloscope!}}.
+With the decision over which hardware to choose cleared out of the way, let's continue and use Quartus to synthesize our VHDL design.
 \newpage
-\begin{figure}
+\section{Hardware synthesis}
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{asynchronous_quadrature_decoder_quartus_rtl.pdf}
+\includegraphics[width=\textwidth]{asynchronous_quadrature_decoder_quartus_rtl.pdf}
 \caption{RTL view of asynchronous design}
 \end{figure}
+\newpage
 \begin{figure}
 \centering
 \includegraphics[width=0.5\textwidth]{asynchronous_quadrature_decoder_quartus_map.pdf}
