@@ -200,11 +200,23 @@ If you look closer, $A$ and $B$ are used exclusively as inputs whereas the signa
 With the last two indirections we can keep the signals $Pulse$ and $Direction$ strictly as outputs.
 Can we please see the circuit in action now? Quick, to the testbench!
 \newpage
-\begin{figure}
+\section{Testbench}
+What I didn't realise at first while working with VHDL was that having a testbench is such an awesome concept.
+We can actually create a virtual environment where we can test our design in isolation and do all kinds of nasty stimulations we can think of to it, without ever worrying about the magic smoke to come out.
+Even nicer is the fact, that there are free and open source tools like GHDL~\footnote{\url{http://ghdl.free.fr/}} for VHDL simulation and GTKWave~\footnote{\url{http://gtkwave.sourceforge.net/}} for waveform visualization.
+Those two are the only tools you will ever need if you want to learn to code in VHDL.
+The result of running a testbench simulation on the VHDL code from figure~\ref{fig:asynchronous} in GHDL and visualized in GTKWave would look like in figure~\ref{fig:waveforms}.
+\begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{asynchronous_quadrature_decoder_gtkwave.pdf}
 \caption{Waveforms of asynchronous design}
+\label{fig:waveforms}
 \end{figure}
+As you can see, we are even able to simulate the contact bounces in a testbench!
+Signals $A$--$F$ have the erratic pulses but behold, the $Pulse$ and $Direction$ signals are properly debounced by the SR latches.
+If you want to run this testbench on your own, this is the place where you should stop reading and have fun with the VHDL code on my GitHub page: \url{https://github.com/xdsopl/vhdl}
+\\Had fun? Thought so. Let's continue with synthesis.
+\newpage
 \begin{figure}
 \centering
 \includegraphics[width=0.5\textwidth]{asynchronous_quadrature_decoder_quartus_rtl.pdf}
