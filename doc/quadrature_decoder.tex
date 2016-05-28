@@ -72,12 +72,12 @@ $B$ & LLL LHH LLL SSS LLL HHL LLL \\
 \label{fig:quadrature}
 \end{wrapfigure}
 On the left you can see waveforms that happen when the wheel of the rotary encoder is turned one step left and one step right is what you see on the right side.
-These signals are said to be \emph{in quadrature} as their relation is that they are ortogonal to each other or in simpler terms, $90\degree$ out of phase.
+These signals are said to be \emph{in quadrature}~\footnote{\href{https://en.wikipedia.org/wiki/In-phase_and_quadrature_components}{Wikipedia on: In-phase and quadrature components.}} as their relation is that they are ortogonal to each other or in simpler terms, $90\degree$ out of phase.
 We can also gather, that there are only four signal level constellations we have to consider and creating the signals to be debounced by our trusty SR~latches is now easy:
 \begin{align}
-1-2, 7-8 &:& A = H &\land B = L &\implies& E \gets A \land \neg B\\
-2-3, 6-7 &:& A = H &\land B = H &\implies& C \gets A \land B\\
-3-4, 5-6 &:& A = L &\land B = H &\implies& F \gets B \land \neg A\\
+1\mbox{--}2, 7\mbox{--}8 &:& A = H &\land B = L &\implies& E \gets A \land \neg B\\
+2\mbox{--}3, 6\mbox{--}7 &:& A = H &\land B = H &\implies& C \gets A \land B\\
+3\mbox{--}4, 5\mbox{--}6 &:& A = L &\land B = H &\implies& F \gets B \land \neg A\\
     else &:& A = L &\land B = L &\implies& D \gets \neg (A \lor B)
 \end{align}
 \section{Design with logic gates}
@@ -130,16 +130,16 @@ We can also gather, that there are only four signal level constellations we have
 \caption{Logic gate circuit}
 \label{fig:logic}
 \end{wrapfigure}
-Putting those new signals $C-F$ to good use and designing a circuit made from logic gates should lead us to something like shown in figure~\ref{fig:logic}.
+Putting those new signals $C$--$F$ to good use and designing a circuit made from logic gates should lead us to something like shown in figure~\ref{fig:logic}.
 Before immediately jumping to build the circuit in hardware (now that you have the circuit) please be aware that the signals shown in figure~\ref{fig:quadrature} are active high signals.
-With TTL logic you usually use pull-up resistors with mechanical switches and thus have active low signals.
+With TTL logic you usually use pull-up resistors~\footnote{\href{https://en.wikipedia.org/wiki/Pull-up_resistor}{Wikipedia on: Pull-up resistor.}} with mechanical switches and thus have active low signals.
 The reason being that it needs a much higher current when driving an TTL input low than high.
 With CMOS logic it doesn't matter: you can exchange pull-up with pull-down resistors for the mechanical switches, therefore inverting the signal with no problems.
 Using active low signals with this circuit will make it work unreliable and you should redesign the circuit if you intend to go that way (bonus points to those who do).
-So is it really gonna work if we build it? Let's find out!
+So is it really gonna work if we build it? Let's~find~out!
+\newpage
 \section{Circuit analysis}
-Carefully analysing the waveforms of the signals $C-F$, $Pulse$ and $Direction$ created by our circuit when stimulated by the clean signals $A$ and $B$ might look like in figure~\ref{fig:waveforms}.
-\begin{figure}[h]
+\begin{wrapfigure}{l}{0.5\textwidth}
 \centering
 \begin{tikztimingtable}
 $A$         & LLL N(A1)HHN(A2)L LLL LN(A3)HHN(A4) LLL \\
@@ -164,7 +164,10 @@ $Direction$ & LLL LLN(D1)H HHH HHN(D2)L LLL \\
 \end{tikztimingtable}
 \caption{Clean waveforms}
 \label{fig:waveforms}
-\end{figure}
+\end{wrapfigure}
+Carefully analysing the waveforms of the signals $C$--$F$, $Pulse$ and $Direction$ created by our circuit when stimulated by the clean signals $A$ and $B$ might look like in figure~\ref{fig:waveforms}.
+We can see, that the high levels of the signal pairs $C, D$ and $E, F$ do not overlap.
+This is important for the SR latch to work correctly, as the state when both inputs are high would cause a race condition~\footnote{\href{https://en.wikibooks.org/wiki/Digital_Circuits/Latches}{Wikibooks on: Digital Circuits/Latches}}, leading to undefined behavior.
 \newpage
 \begin{figure}
 \centering
