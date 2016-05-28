@@ -172,8 +172,8 @@ Even the signals $Pulse$ and $Direction$ look good: $Direction$ stays steady whi
 Those are exactly the signals we can use with rising edge-triggered devices.
 Setup and hold times shouldn't be an issue either, as the electronic devices we are going to use are many orders of magnitude faster than the signals created by our mechanical rotary switches.
 So let's build it. With VHDL!
-\newpage
-\begin{figure}
+\section{Design with VHDL}
+\begin{wrapfigure}{r}{0.5\textwidth}
 \centering
 \begin{BVerbatim}
 c <= a and b;
@@ -187,8 +187,19 @@ pul_n <= pul nor c;
 pulse <= pul;
 direction <= dir;
 \end{BVerbatim}
-\caption{VHDL code of asynchronous design}
-\end{figure}
+\caption{VHDL code}
+\label{fig:asynchronous}
+\end{wrapfigure}
+Signals $A$ and $B$ are the inputs we have and need to create the outputs $Pulse$ and $Direction$ of our circuit.
+Keeping in mind that VHDL statements run concurrently, we can easily write our circuit from figure~\ref{fig:logic} down like in figure~\ref{fig:asynchronous}
+But wait a minute, aren't we creating race conditions here already?
+Nope, and here's why: VHDL uses something called the \emph{delta cycle algorithm}\footnote{Jan Decaluwe wrote a very nice article about it: VHDL's crown jewel.} to simulate the circuit.
+In short: Signal assignments in VHDL get their value updated in the next delta cycle, just like a physical logic gate would deliver its new resulting output value after some time has past when stimulated by new input values.
+Okay, but why are we using signals $A$ and $B$ directly in our VHDL circuit but not $Pulse$ and $Direction$?
+If you look closer, $A$ and $B$ are used exclusively as inputs whereas the signal pairs $dir,dir\_n$ and $pul,pul\_n$ are used as inputs and outputs at the same time.
+With the last two indirections we can keep the signals $Pulse$ and $Direction$ strictly as outputs.
+Can we please see the circuit in action now? Quick, to the testbench!
+\newpage
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{asynchronous_quadrature_decoder_gtkwave.pdf}
