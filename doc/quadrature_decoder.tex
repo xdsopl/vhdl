@@ -168,6 +168,10 @@ $Direction$ & LLL LLN(D1)H HHH HHN(D2)L LLL \\
 Carefully analysing the waveforms of the signals $C$--$F$, $Pulse$ and $Direction$ created by our circuit when stimulated by the clean signals $A$ and $B$ might look like in figure~\ref{fig:waveforms}.
 We can see, that the high levels of the signal pairs $C, D$ and $E, F$ do not overlap.
 This is important for the SR latch to work correctly, as the state when both inputs are high would cause a race condition~\footnote{\href{https://en.wikibooks.org/wiki/Digital_Circuits/Latches}{Wikibooks on: Digital Circuits/Latches}}, leading to undefined behavior.
+Even the signals $Pulse$ and $Direction$ look good: $Direction$ stays steady while $Pulse$ is going from low to high.
+Those are exactly the signals we can use with rising edge-triggered devices.
+Setup and hold times shouldn't be an issue either, as the electronic devices we are going to use are many orders of magnitude faster than the signals created by our mechanical rotary switches.
+So let's build it. With VHDL!
 \newpage
 \begin{figure}
 \centering
