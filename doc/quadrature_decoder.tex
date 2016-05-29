@@ -216,7 +216,7 @@ As you can see, we are even able to simulate the contact bounces in a testbench!
 Signals $A$--$F$ have the erratic pulses but behold, the $Pulse$ and $Direction$ signals are properly debounced by the SR latches.
 If you want to run this testbench on your own, this is the place where you should stop reading and have fun with the VHDL code on my GitHub page: \url{https://github.com/xdsopl/vhdl}
 \\Had fun? Thought so. Let's continue with the hardware.
-\section{Which FPGA Vendor}
+\section{Which FPGA vendor}
 For my FPGA experiments I ordered an Altera MAX10 devkit~\footnote{\href{https://www.altera.com/products/boards_and_kits/dev-kits/altera/kit-max-10-evaluation.html}{Altera MAX 10 FPGA Evaluation Kit EK-10M08E144ES/P}} on Digi-Key~\footnote{\href{http://www.digikey.de/short/3pd4ch}{Digi-Key Part Number: 544-3042-ND}}.
 That's why I'm going to continue with the results and screenshots~\footnote{Used "print to PDF" and edited in Inkscape} made from Altera's free Quartus~Prime~Lite~Edition~\footnote{\url{http://dl.altera.com/?edition=lite}} design software.
 Don't forget to order an download cable with the above devkit, as it has no onboard programmer.
@@ -377,7 +377,7 @@ A possible implementation using logic gates is shown in figure~\ref{fig:lut_logi
 As you can see, changing the value of a single signal like for example $A$ would stimulate almost every single logic gate in parallel and therefore a lot of transistors.
 Not every transistor is born equal on the same die: some of them will switch faster whereas others will be weaker, etc.
 So we have the problem, that not every signal constellation on the inputs $A$--$C$ will result in the simultaneous switching of all transistors and thus we have overlapping transitions on the outputs of the logic gates, causing glitches.
-Some FPGA Vendors guarantee~\footnote{You have to wade through forum posts to get something from officials :(} that their LUT implementation won't glitch on a value change of a single input or if all value permutations of the signals involved would result in the same output.
+Some FPGA vendors guarantee~\footnote{You have to wade through forum posts to get something from officials :(} that their LUT implementation won't glitch on a value change of a single input or if all value permutations of the signals involved would result in the same output.
 Even if we would have an implementation that would guarantee a glitch free operation on multiple signals changing at once, we would still experience glitches, as it can't be guaranteed that all input signals will change their value simultaneously.
 In figure~\ref{fig:glitch} we see the waveforms and a glitch happening to a guaranteed glitch free operating lookup table with the constant value signals $I0$--$I7$ and beeing stimulated by the signals $A$--$C$.
 \begin{figure}[h]
@@ -410,7 +410,10 @@ That little delay causes a glitch that could easily ruin your day.
 Depending on the load of the outputs and routing of the signals, such unequal delays are hard to avoid and should be dealt with using more practical methods.
 Enter the world of synchronous designs.
 \newpage
-\begin{figure}
+\section{Register-transfer level}
+Fixing the glitch is so easy, that it is almost boring: use an externally clocked register in the feedback loop!
+Even the VHDL code get's simpler as you can see in figure~\ref{fig:syn_vhdl}.
+\begin{figure}[h]
 \centering
 \begin{BVerbatim}
 c <= a xor b;
@@ -420,20 +423,30 @@ pulse <= pul;
 direction <= dir;
 \end{BVerbatim}
 \caption{VHDL code of synchronous design}
+\label{fig:syn_vhdl}
 \end{figure}
-\begin{figure}
+We sample $A$ or $B$ on the rising edge of our external $Clock$ signal, which should be clocked slower than the output stabilization time of the lookup tables inside the FPGA but at least two times faster~\footnote{See Nyquist limit.} than the shortest stable~\footnote{Not accounting for the contact bounce pulses.} pulse seen on our signal $C$.
+Putting the synchronous design in a testbench gives us the waveforms shown in figure~\ref{fig:syn_wave}.
+\begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{quadrature_decoder_gtkwave.pdf}
 \caption{Waveforms of synchronous design}
+\label{fig:syn_wave}
 \end{figure}
-\begin{figure}
+Properly debounced signals $Pulse$ and $Direction$ and exactly with the timing needed for edge triggered devices!
+For completeness sake, let's also look at the quite boring RTL view in figure~\ref{fig:syn_rtl}.
+Just one XOR gate and two D-type flip-flops with clock enable input.
+\begin{figure}[h]
 \centering
 \includegraphics[width=0.5\textwidth]{quadrature_decoder_quartus_rtl.pdf}
 \caption{RTL view of synchronous design}
+\label{fig:syn_rtl}
 \end{figure}
-\begin{figure}
+Let's finish up here quickly by looking at the technology map view in figure~\ref{fig:syn_map}.
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{quadrature_decoder_quartus_map.pdf}
+\includegraphics[width=0.7\textwidth]{quadrature_decoder_quartus_map.pdf}
 \caption{Technology map view of synchronous design}
+\label{fig:syn_map}
 \end{figure}
 \end{document}
