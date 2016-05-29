@@ -128,9 +128,9 @@ We can also gather, that there are only four signal level constellations we have
 \draw (P1) -- (P);
 \end{tikzpicture}
 \caption{Logic gate circuit}
-\label{fig:logic}
+\label{fig:asyn_logic}
 \end{wrapfigure}
-Putting those new signals $C$--$F$ to good use and designing a circuit made from logic gates should lead us to something like shown in figure~\ref{fig:logic}.
+Putting those new signals $C$--$F$ to good use and designing a circuit made from logic gates should lead us to something like shown in figure~\ref{fig:asyn_logic}.
 Before immediately jumping to build the circuit in hardware (now that you have the circuit) please be aware that the signals shown in figure~\ref{fig:quadrature} are active high signals.
 With TTL logic you usually use pull-up resistors~\footnote{\href{https://en.wikipedia.org/wiki/Pull-up_resistor}{Wikipedia on: Pull-up resistor.}} with mechanical switches and thus have active low signals.
 The reason being that it needs a much higher current when driving an TTL input low than high.
@@ -163,9 +163,9 @@ $Direction$ & LLL LLN(D1)H HHH HHN(D2)L LLL \\
 \end{pgfonlayer}
 \end{tikztimingtable}
 \caption{Clean waveforms}
-\label{fig:waveforms}
+\label{fig:asyn_wave}
 \end{wrapfigure}
-Carefully analysing the waveforms of the signals $C$--$F$, $Pulse$ and $Direction$ created by our circuit when stimulated by the clean signals $A$ and $B$ might look like in figure~\ref{fig:waveforms}.
+Carefully analysing the waveforms of the signals $C$--$F$, $Pulse$ and $Direction$ created by our circuit when stimulated by the clean signals $A$ and $B$ might look like in figure~\ref{fig:asyn_wave}.
 We can see, that the high levels of the signal pairs $C, D$ and $E, F$ do not overlap.
 This is important for the SR latch to work correctly, as the state when both inputs are high would cause a race condition~\footnote{\href{https://en.wikibooks.org/wiki/Digital_Circuits/Latches}{Wikibooks on: Digital Circuits/Latches}}, leading to undefined behavior.
 Even the signals $Pulse$ and $Direction$ look good: $Direction$ stays steady while $Pulse$ is going from low to high.
@@ -188,10 +188,10 @@ pulse <= pul;
 direction <= dir;
 \end{BVerbatim}
 \caption{VHDL code}
-\label{fig:asynchronous}
+\label{fig:asyn_vhdl}
 \end{wrapfigure}
 Signals $A$ and $B$ are the inputs we have and need to create the outputs $Pulse$ and $Direction$ of our circuit.
-Keeping in mind that VHDL statements run concurrently, we can easily write our circuit from figure~\ref{fig:logic} down like in figure~\ref{fig:asynchronous}
+Keeping in mind that VHDL statements run concurrently, we can easily write our circuit from figure~\ref{fig:asyn_logic} down like in figure~\ref{fig:asyn_vhdl}
 But wait a minute, aren't we creating race conditions here already?
 Nope, and here's why: VHDL uses something called the \emph{delta cycle algorithm}\footnote{Jan Decaluwe wrote a very nice article about it: VHDL's crown jewel.} to simulate the circuit.
 In short: Signal assignments in VHDL get their value updated in the next delta cycle, just like a physical logic gate would deliver its new resulting output value after some time has past when stimulated by new input values.
@@ -205,12 +205,12 @@ What I didn't realise at first while working with VHDL was that having a testben
 We can actually create a virtual environment where we can test our design in isolation and do all kinds of nasty stimulations we can think of to it, without ever worrying about the magic smoke to come out.
 Even nicer is the fact, that there are free and open source tools like GHDL~\footnote{\url{http://ghdl.free.fr/}} for VHDL simulation and GTKWave~\footnote{\url{http://gtkwave.sourceforge.net/}} for waveform visualization.
 Those two are the only tools you will ever need if you want to learn to code in VHDL.
-The result of running a testbench simulation on the VHDL code from figure~\ref{fig:asynchronous} in GHDL and visualized in GTKWave would look like in figure~\ref{fig:waveforms}.
+The result of running a testbench simulation on the VHDL code from figure~\ref{fig:asyn_vhdl} in GHDL and visualized in GTKWave would look like in figure~\ref{fig:asyn_wave}.
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{asynchronous_quadrature_decoder_gtkwave.pdf}
 \caption{Waveforms of asynchronous design}
-\label{fig:waveforms}
+\label{fig:asyn_wave}
 \end{figure}
 As you can see, we are even able to simulate the contact bounces in a testbench!
 Signals $A$--$F$ have the erratic pulses but behold, the $Pulse$ and $Direction$ signals are properly debounced by the SR latches.
@@ -218,7 +218,7 @@ If you want to run this testbench on your own, this is the place where you shoul
 \\Had fun? Thought so. Let's continue with the hardware.
 \section{Which FPGA Vendor}
 For my FPGA experiments I ordered an Altera MAX10 devkit~\footnote{\href{https://www.altera.com/products/boards_and_kits/dev-kits/altera/kit-max-10-evaluation.html}{Altera MAX 10 FPGA Evaluation Kit EK-10M08E144ES/P}} on Digi-Key~\footnote{\href{http://www.digikey.de/short/3pd4ch}{Digi-Key Part Number: 544-3042-ND}}.
-That's why I'm going to continue with the results and screenshots made from Altera's free Quartus~Prime~Lite~Edition~\footnote{\url{http://dl.altera.com/?edition=lite}} design software.
+That's why I'm going to continue with the results and screenshots~\footnote{Used "print to PDF" and edited in Inkscape} made from Altera's free Quartus~Prime~Lite~Edition~\footnote{\url{http://dl.altera.com/?edition=lite}} design software.
 Don't forget to order an download cable with the above devkit, as it has no onboard programmer.
 I ended up ordering the cheaper USB Blaster clone from Terasic on Digi-Key~\footnote{\href{http://www.digikey.de/short/3pd4j9}{Digi-Key Part Number: P0302-ND}} which also works with the software from Altera.
 The only thing I couldn't understand was the lack of galvanic isolation for a simple device of such high price.
@@ -226,17 +226,20 @@ So be careful when poking around for differential signals with your oscilloscope
 With the decision over which hardware to choose cleared out of the way, let's continue and use Quartus to synthesize our VHDL design.
 \newpage
 \section{Hardware synthesis}
+The VHDL code from figure~\ref{fig:asyn_vhdl} compiled in Quartus and viewed in it's RTL~Viewer looks like in figure~\ref{fig:asyn_rtl}.
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{asynchronous_quadrature_decoder_quartus_rtl.pdf}
-\caption{RTL view of asynchronous design}
+\caption{RTL view of our design}
+\label{fig:asyn_rtl}
 \end{figure}
-\newpage
-\begin{figure}
+It might look a little odd but it is essentially the same circuit as in figure~\ref{fig:asyn_logic}
+\begin{figure}[h]
 \centering
 \includegraphics[width=0.5\textwidth]{asynchronous_quadrature_decoder_quartus_map.pdf}
 \caption{Reduced to two combinational loops}
 \end{figure}
+\newpage
 \begin{figure}
 \centering
 \begin{BVerbatim}
