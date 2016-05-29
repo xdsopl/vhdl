@@ -260,9 +260,10 @@ Warning (332126): Node "decoder_inst|dir~0|combout"
 The problem lies within the feedback of $COMBOUT$ to $DATAA$.
 But it works fine, I tried it, so why the fuss? Let's look at how lookup tables work.
 \newpage
-\begin{figure}
+\section{Lookup tables}
+\begin{wrapfigure}{r}{0.5\textwidth}
 \centering
-\begin{tikzpicture}[circuit logic US]
+\begin{tikzpicture}[scale=0.6, circuit logic US]
 \node (A) at (1,0) {$A$};
 \node (B) at (2,0) {$B$};
 \node (C) at (3,0) {$C$};
@@ -369,10 +370,19 @@ But it works fine, I tried it, so why the fuss? Let's look at how lookup tables 
 \draw (Or0.output) -- (O);
 \end{tikzpicture}
 \caption{Lookup table logic circuit}
-\end{figure}
-\begin{figure}
+\label{fig:lut_logic}
+\end{wrapfigure}
+There are actually a lot of different implementation designs for lookup tables solving one or another problem depending on their use case and constraints.
+A possible implementation using logic gates is shown in figure~\ref{fig:lut_logic}.
+As you can see, changing the value of a single signal like for example $A$ would stimulate almost every single logic gate in parallel and therefore a lot of transistors.
+Not every transistor is born equal on the same die: some of them will switch faster whereas others will be weaker, etc.
+So we have the problem, that not every signal constellation on the inputs $A$--$C$ will result in the simultaneous switching of all transistors and thus we have overlapping transitions on the outputs of the logic gates, causing glitches.
+Some FPGA Vendors guarantee~\footnote{You have to wade through forum posts to get something from officials :(} that their LUT implementation won't glitch on a value change of a single input or if all value permutations of the signals involved would result in the same output.
+Even if we would have an implementation that would guarantee a glitch free operation on multiple signals changing at once, we would still experience glitches, as it can't be guaranteed that all input signals will change their value simultaneously.
+In figure~\ref{fig:glitch} we see the waveforms and a glitch happening to a guaranteed glitch free operating lookup table with the constant value signals $I0$--$I7$ and beeing stimulated by the signals $A$--$C$.
+\begin{figure}[h]
 \centering
-\begin{tikztimingtable}[xscale=0.25]
+\begin{tikztimingtable}[xscale=0.22,yscale=0.7]
 $I0$  & 200H \\
 $I1$  & 200L \\
 $I2$  & 200H \\
@@ -392,8 +402,14 @@ $Out$ & 25H 25L N(O1)25H 25L N(O2)HN(O3) 24L 25L 25L 25L \\
 \draw[help lines] (B1) -- (O3);
 \end{pgfonlayer}
 \end{tikztimingtable}
-\caption{Glitch on output when multiple inputs change at almost the same time}
+\caption{Glitch on $Out$ when multiple inputs change at almost the same time}
+\label{fig:glitch}
 \end{figure}
+Looking closer at the edges of the signals $A$--$C$ you can see, that they do not arrive at the same time: $A$ comes before $B$ and $B$ comes before $C$.
+That little delay causes a glitch that could easily ruin your day.
+Depending on the load of the outputs and routing of the signals, such unequal delays are hard to avoid and should be dealt with using more practical methods.
+Enter the world of synchronous designs.
+\newpage
 \begin{figure}
 \centering
 \begin{BVerbatim}
