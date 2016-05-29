@@ -234,13 +234,17 @@ The VHDL code from figure~\ref{fig:asyn_vhdl} compiled in Quartus and viewed in 
 \label{fig:asyn_rtl}
 \end{figure}
 It might look a little odd but it is essentially the same circuit as in figure~\ref{fig:asyn_logic}
+But we are more interested about the configuration that will later land on the FPGA.
+That's where the Technology Map Viewer comes into play and our design looks like in figure~\ref{fig:asyn_map}
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.5\textwidth]{asynchronous_quadrature_decoder_quartus_map.pdf}
 \caption{Reduced to two combinational loops}
+\label{fig:asyn_map}
 \end{figure}
-\newpage
-\begin{figure}
+Wow, just two lookup tables! And it works, too!
+It still looks to good to be true and indeed this configuration harbours hidden dangers as we can see some hints from Quartus shown in figure~\ref{fig:warning}.
+\begin{figure}[h]
 \centering
 \begin{BVerbatim}
 Warning: Found combinational loop of 2 nodes
@@ -251,7 +255,11 @@ Warning (332126): Node "decoder_inst|dir~0|dataa"
 Warning (332126): Node "decoder_inst|dir~0|combout"
 \end{BVerbatim}
 \caption{Combinational loop warning}
+\label{fig:warning}
 \end{figure}
+The problem lies within the feedback of $COMBOUT$ to $DATAA$.
+But it works fine, I tried it, so why the fuss? Let's look at how lookup tables work.
+\newpage
 \begin{figure}
 \centering
 \begin{tikzpicture}[circuit logic US]
