@@ -135,7 +135,7 @@ Before immediately jumping to build the circuit in hardware (now that you have t
 With TTL logic you usually use pull-up resistors~\footnote{\href{https://en.wikipedia.org/wiki/Pull-up_resistor}{Wikipedia on: Pull-up resistor.}} with mechanical switches and thus have active low signals.
 The reason being that it needs a much higher current when driving an TTL input low than high.
 With CMOS logic it doesn't matter: you can exchange pull-up with pull-down resistors for the mechanical switches, therefore inverting the signal with no problems.
-Using active low signals with this circuit will make it work unreliable and you should redesign the circuit if you intend to go that way (bonus points to those who do).
+Using active low signals with this circuit will make it work unreliable and you must redesign the circuit if you intend to go that way (bonus points to those who do).
 So is it really gonna work if we build it? Let's~find~out!
 \newpage
 \section{Circuit analysis}
@@ -167,10 +167,10 @@ $Direction$ & LLL LLN(D1)H HHH HHN(D2)L LLL \\
 \end{wrapfigure}
 Carefully analysing the waveforms of the signals $C$--$F$, $Pulse$ and $Direction$ created by our circuit when stimulated by the clean signals $A$ and $B$ might look like in figure~\ref{fig:clean_wave}.
 We can see, that the high levels of the signal pairs $C, D$ and $E, F$ do not overlap.
-This is important for the SR latch to work correctly, as the state when both inputs are high would cause a race condition~\footnote{\href{https://en.wikibooks.org/wiki/Digital_Circuits/Latches}{Wikibooks on: Digital Circuits/Latches}}, leading to undefined behavior.
+This is important for the SR latch to work correctly, as the state when both inputs are high would cause a race condition~\footnote{\href{https://en.wikibooks.org/wiki/Digital_Circuits/Latches}{Wikibooks on: Digital Circuits/Latches}} leading to undefined behavior.
 Even the signals $Pulse$ and $Direction$ look good: $Direction$ stays steady while $Pulse$ is going from low to high.
 Those are exactly the signals we can use with rising edge-triggered devices.
-Setup and hold times shouldn't be an issue either, as the electronic devices we are going to use are many orders of magnitude faster than the signals created by our mechanical rotary switches.
+Setup and hold times shouldn't be an issue either, since the electronic devices we are going to use are many orders of magnitude faster than the signals created by our mechanical rotary switches.
 So let's build it. With VHDL!
 \section{Design with VHDL}
 \begin{wrapfigure}{r}{0.5\textwidth}
