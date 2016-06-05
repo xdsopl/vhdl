@@ -202,7 +202,7 @@ Can we see the circuit in action now? Of course! Quick, to the testbench!
 \newpage
 \section{Testbench}
 What I didn't realise at first while working with VHDL was that having a testbench is such an awesome concept.
-We can actually create a virtual environment where we can test our design in isolation and do all kinds of nasty stimulations we can think of to it, without ever worrying about the magic smoke to come out.
+We can actually create a virtual environment, where we can test our design in isolation and do all kinds of nasty stimulations we can think of to it, without ever worrying about the magic smoke to come out.
 Even nicer is the fact, that there are free and open source tools like GHDL~\footnote{\url{http://ghdl.free.fr/}} for VHDL simulation and GTKWave~\footnote{\url{http://gtkwave.sourceforge.net/}} for waveform visualization.
 Those two are the only tools you will ever need if you want to learn to code in VHDL.
 The result of running a testbench simulation on the VHDL code from figure~\ref{fig:asyn_vhdl} in GHDL and visualized in GTKWave would look like in figure~\ref{fig:asyn_wave}.
@@ -214,13 +214,13 @@ The result of running a testbench simulation on the VHDL code from figure~\ref{f
 \end{figure}
 As you can see, we are even able to simulate the contact bounces in a testbench!
 Signals $A$--$F$ have the erratic pulses but behold, the $Pulse$ and $Direction$ signals are properly debounced by the SR latches.
-If you want to run this testbench on your own, this is the place where you should stop reading and have fun with the VHDL code on my GitHub page: \url{https://github.com/xdsopl/vhdl}
+If you want to run this testbench on your own, this is the place where you should stop reading and have fun with the VHDL code on my GitHub page: \url{https://github.com/xdsopl/vhdl}.
 \\Had fun? Thought so. Let's continue with the hardware.
 \section{Which FPGA vendor}
 For my FPGA experiments I ordered an Altera MAX10 devkit~\footnote{\href{https://www.altera.com/products/boards_and_kits/dev-kits/altera/kit-max-10-evaluation.html}{Altera MAX 10 FPGA Evaluation Kit EK-10M08E144ES/P}} on Digi-Key~\footnote{\href{http://www.digikey.de/short/3pd4ch}{Digi-Key Part Number: 544-3042-ND}}.
 That's why I'm going to continue with the results and screenshots~\footnote{Used "print to PDF" and edited in Inkscape} made from Altera's free Quartus~Prime~Lite~Edition~\footnote{\url{http://dl.altera.com/?edition=lite}} design software.
-Don't forget to order an download cable with the above devkit, as it has no onboard programmer.
-I ended up ordering the cheaper USB Blaster clone from Terasic on Digi-Key~\footnote{\href{http://www.digikey.de/short/3pd4j9}{Digi-Key Part Number: P0302-ND}} which also works with the software from Altera.
+Don't forget to order a download cable with the above devkit, as it has no onboard programmer.
+I ended up ordering the cheaper USB Blaster clone from Terasic on Digi-Key~\footnote{\href{http://www.digikey.de/short/3pd4j9}{Digi-Key Part Number: P0302-ND}}, which also works with the software from Altera.
 The only thing I couldn't understand was the lack of galvanic isolation for a simple device of such high price.
 So be careful when poking around for differential signals with your oscilloscope\footnote{Dave Jones made a very nice video about it: \href{https://youtu.be/xaELqAo4kkQ}{How NOT To Blow Up Your Oscilloscope!}}.
 With the decision over which hardware to choose cleared out of the way, let's continue and use Quartus to synthesize our VHDL design.
