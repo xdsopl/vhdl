@@ -3,6 +3,7 @@
 % To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
 % You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 \documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{wrapfig}
 \usepackage{gensymb}
@@ -162,9 +163,9 @@ $Direction$ & LLL LLN(D1)H HHH HHN(D2)L LLL \\
 \end{pgfonlayer}
 \end{tikztimingtable}
 \caption{Clean waveforms}
-\label{fig:asyn_wave}
+\label{fig:clean_wave}
 \end{wrapfigure}
-Carefully analysing the waveforms of the signals $C$--$F$, $Pulse$ and $Direction$ created by our circuit when stimulated by the clean signals $A$ and $B$ might look like in figure~\ref{fig:asyn_wave}.
+Carefully analysing the waveforms of the signals $C$--$F$, $Pulse$ and $Direction$ created by our circuit when stimulated by the clean signals $A$ and $B$ might look like in figure~\ref{fig:clean_wave}.
 We can see, that the high levels of the signal pairs $C, D$ and $E, F$ do not overlap.
 This is important for the SR latch to work correctly, as the state when both inputs are high would cause a race condition~\footnote{\href{https://en.wikibooks.org/wiki/Digital_Circuits/Latches}{Wikibooks on: Digital Circuits/Latches}}, leading to undefined behavior.
 Even the signals $Pulse$ and $Direction$ look good: $Direction$ stays steady while $Pulse$ is going from low to high.
