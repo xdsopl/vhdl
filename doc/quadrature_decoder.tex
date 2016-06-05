@@ -434,7 +434,7 @@ Putting the synchronous design in a testbench gives us the waveforms shown in fi
 \label{fig:syn_wave}
 \end{figure}
 Properly debounced signals $Pulse$ and $Direction$ and exactly with the timing needed for edge triggered devices!
-For completeness sake, let's also look at the quite boring RTL view in figure~\ref{fig:syn_rtl}.
+For completeness sake, let's also look at the now quite boring RTL view in figure~\ref{fig:syn_rtl}.
 Just one XOR gate and two D-type flip-flops with clock enable input.
 \begin{figure}[h]
 \centering
@@ -442,7 +442,13 @@ Just one XOR gate and two D-type flip-flops with clock enable input.
 \caption{RTL view of synchronous design}
 \label{fig:syn_rtl}
 \end{figure}
-Let's finish up here quickly by looking at the technology map view in figure~\ref{fig:syn_map}.
+When I say boring, it's meant in a good way:
+There will be enough opportunities for interesting problems to eat up your time and you will learn to welcome the boring solutions while working with FPGA's.
+Let's finally conclude here by looking at the technology map view in figure~\ref{fig:syn_map}.
+\section{Conclusion}
+Going the asynchronous route it became a very time consuming and interesting project that forced me to understand the problems one faces when working with FPGA's.
+Looking at the history of this project on my GitHub page\footnote{\url{https://github.com/xdsopl/vhdl}} you will even see some quite creative designs that I came up with while working on this problem.
+No matter how creative you get while designing, as long as the basic concepts of FPGA's are not understood, the designs will fail and even worse: when you least expect it.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.7\textwidth]{quadrature_decoder_quartus_map.pdf}
