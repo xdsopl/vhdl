@@ -226,16 +226,16 @@ So be careful when poking around for differential signals with your oscilloscope
 With the decision over which hardware to choose cleared out of the way, let's continue and use Quartus to synthesize our VHDL design.
 \newpage
 \section{Hardware synthesis}
-The VHDL code from figure~\ref{fig:asyn_vhdl} compiled in Quartus and viewed in it's RTL~Viewer looks like in figure~\ref{fig:asyn_rtl}.
+The VHDL code from figure~\ref{fig:asyn_vhdl} compiled in Quartus and viewed in its RTL~Viewer looks like in figure~\ref{fig:asyn_rtl}.
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{asynchronous_quadrature_decoder_quartus_rtl.pdf}
 \caption{RTL view of our design}
 \label{fig:asyn_rtl}
 \end{figure}
-It might look a little odd but it is essentially the same circuit as in figure~\ref{fig:asyn_logic}
+It might look a little odd but it is essentially the same circuit as in figure~\ref{fig:asyn_logic}.
 But we are more interested about the configuration that will later land on the FPGA.
-That's where the Technology Map Viewer comes into play and our design looks like in figure~\ref{fig:asyn_map}
+Thats where the Technology Map Viewer comes into play and our design looks like in figure~\ref{fig:asyn_map}.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.5\textwidth]{asynchronous_quadrature_decoder_quartus_map.pdf}
@@ -243,7 +243,7 @@ That's where the Technology Map Viewer comes into play and our design looks like
 \label{fig:asyn_map}
 \end{figure}
 Wow, just two lookup tables! And it works, too!
-It still looks to good to be true and indeed this configuration harbours hidden dangers as we can see some hints from Quartus shown in figure~\ref{fig:warning}.
+It still looks too good to be true and indeed this configuration harbours hidden dangers as we can see some hints from Quartus shown in figure~\ref{fig:warning}.
 \begin{figure}[h]
 \centering
 \begin{BVerbatim}
@@ -258,7 +258,7 @@ Warning (332126): Node "decoder_inst|dir~0|combout"
 \label{fig:warning}
 \end{figure}
 The problem lies within the feedback of $COMBOUT$ to $DATAA$.
-But it works fine, I tried it, so why the fuss? Let's look at how lookup tables work.
+But it works fine! So why the fuss? Let's look at how lookup tables work.
 \newpage
 \section{Lookup tables}
 \begin{wrapfigure}{r}{0.5\textwidth}
@@ -427,7 +427,7 @@ direction <= dir;
 \label{fig:syn_vhdl}
 \end{figure}
 We sample $A$ or $B$ on the rising edge of our external $Clock$ signal, which should be clocked slower than the output stabilization time of the lookup tables inside the FPGA but at least two times faster~\footnote{See Nyquist limit.} than the shortest stable~\footnote{Not accounting for the contact bounce pulses.} pulse seen on our signal $C$.
-Putting the synchronous design in a testbench gives us the waveforms shown in figure~\ref{fig:syn_wave}.
+Putting the synchronous design in a testbench gives us the waveforms shown in figure~\ref{fig:syn_wave}:
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{quadrature_decoder_gtkwave.pdf}
