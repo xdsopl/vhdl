@@ -198,7 +198,7 @@ In short: Signal assignments in VHDL get their value updated in the next delta c
 Okay, but why are we using signals $A$ and $B$ directly in our VHDL circuit but $Pulse$ and $Direction$ not?
 If you look closer, $A$ and $B$ are used exclusively as inputs whereas the signal pairs $dir,dir\_n$ and $pul,pul\_n$ are used as inputs and outputs at the same time.
 With the last two simple signal assignments we can keep the signals $Pulse$ and $Direction$ strictly as outputs.
-Can we see the circuit in action now? Quick, to the testbench!
+Can we see the circuit in action now? Of course! Quick, to the testbench!
 \newpage
 \section{Testbench}
 What I didn't realise at first while working with VHDL was that having a testbench is such an awesome concept.
