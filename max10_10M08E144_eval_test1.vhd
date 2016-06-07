@@ -32,11 +32,7 @@ architecture rtl of max10_10M08E144_eval_test1 is
 	attribute chip_pin of ground : signal is "66";
 	signal reset : std_logic;
 	signal rotary : std_logic_vector (1 downto 0);
-	signal pulse : std_logic;
 	signal invert : std_logic;
-	signal inv_deb : std_logic;
-	signal dir, inv : std_logic;
-	signal direction : std_logic;
 	signal leds : std_logic_vector (NUM_LEDS-1 downto 0);
 begin
 	reset <= not reset_n;
