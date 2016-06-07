@@ -29,11 +29,11 @@ architecture rtl of test2 is
 begin
 	leds <= std_logic_vector(to_unsigned(divider, NUM_LEDS));
 	dclock <= divided;
-	
+
 	quadrature_decoder_inst: entity work.quadrature_decoder
 		port map (clock, rotary, direction, pulse);
 
-	divider <= 0 when reset = '1' else divider + 1 when rising_edge(pulse) and direction = '0' else divider - 1 when rising_edge(pulse) and direction = '1' else divider;		
+	divider <= 0 when reset = '1' else divider + 1 when rising_edge(pulse) and direction = '0' else divider - 1 when rising_edge(pulse) and direction = '1' else divider;
 	counter <= 0 when reset = '1' else divider when rising_edge(clock) and counter = 0 else counter - 1 when rising_edge(clock) else counter;
 	divided <= '0' when reset = '1' else not divided when rising_edge(clock) and counter = 0 else divided;
 end rtl;
