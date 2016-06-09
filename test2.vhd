@@ -33,7 +33,31 @@ begin
 	quadrature_decoder_inst: entity work.quadrature_decoder
 		port map (clock, rotary, direction, pulse);
 
-	divider <= 0 when reset = '1' else divider + 1 when rising_edge(pulse) and direction = '0' else divider - 1 when rising_edge(pulse) and direction = '1' else divider;
-	counter <= 0 when reset = '1' else divider when rising_edge(clock) and counter = 0 else counter - 1 when rising_edge(clock) else counter;
-	divided <= '0' when reset = '1' else not divided when rising_edge(clock) and counter = 0 else divided;
+	process (reset, clock)
+	begin
+		if reset = '1' then
+			counter <= 0;
+			divided <= '0';
+		elsif rising_edge(clock) then
+			if counter = 0 then
+				counter <= divider;
+				divided <= not divided;
+			else
+				counter <= counter - 1;
+			end if;
+		end if;
+	end process;
+
+	process (reset, pulse)
+	begin
+		if reset = '1' then
+			divider <= 0;
+		elsif rising_edge(pulse) then
+			if direction = '0' then
+				divider <= divider + 1;
+			else
+				divider <= divider - 1;
+			end if;
+		end if;
+	end process;
 end rtl;
