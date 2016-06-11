@@ -2,7 +2,10 @@
 GHDL = $(HOME)/ghdl/bin/ghdl
 
 .PHONY: all
-all: quadrature_decoder_testbench.vcd asynchronous_quadrature_decoder_testbench.vcd
+all: pulse_generator_testbench.vcd quadrature_decoder_testbench.vcd asynchronous_quadrature_decoder_testbench.vcd
+
+pulse_generator_testbench-obj93.cf: pulse_generator_testbench.vhd pulse_generator.vhd
+	$(GHDL) -i --work=pulse_generator_testbench $^
 
 quadrature_decoder_testbench-obj93.cf: quadrature_decoder_testbench.vhd quadrature_decoder.vhd
 	$(GHDL) -i --work=quadrature_decoder_testbench $^
