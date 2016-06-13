@@ -59,7 +59,7 @@ begin
 			areset <= '1';
 			scanclkena <= '0';
 			configupdate <= '0';
-		elsif rising_edge(clock) then
+		elsif falling_edge(clock) then
 			areset <= '0';
 			configupdate <= '0';
 			if update = '1' and not transfer then
